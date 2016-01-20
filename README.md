@@ -79,6 +79,15 @@ dependencies {
     });
     ```
 
+# Proguard
+
+```
+-keepattributes *Annotation*
+-keepclassmembers class * extends com.twiceyuan.commonadapter.library.holder.CommonHolder {
+    public <init>(...);
+}
+```
+
 # 感谢
 
 * EasyAdapter https://github.com/ribot/easy-adapter

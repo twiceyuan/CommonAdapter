@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.with.javascript.interface.for.webview {
 #   public *;
 #}
+-keepattributes *Annotation*
+-keepclassmembers class * extends com.twiceyuan.commonadapter.library.holder.CommonHolder {
+    public <init>(...);
+}
