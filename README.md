@@ -6,7 +6,7 @@
 
 # 引用
 
-```
+```grovy
 allprojects {
 	repositories {
 		...
@@ -14,7 +14,7 @@ allprojects {
 	}
 }
 ```
-```
+```grovy
 dependencies {
   compile 'com.github.twiceyuan:CommonAdapter:0.1'
 }
@@ -24,7 +24,7 @@ dependencies {
 
 1. 创建一个 ViewHolder 并继承 CommonHolder<T>，T 为实体数据类型
 
-  ```
+  ```java
   // 绑定布局资源
   @LayoutId(R.layout.item_person)
   public class PersonHolder extends CommonHolder<Person> {
@@ -49,7 +49,7 @@ dependencies {
 
     RecyclerView Adapter Sample
     
-    ```
+    ```java
     // 构造
     SimpleRecyclerAdapter<Person> recyclerAdapter = new SimpleRecyclerAdapter<>(this, PersonHolder.class);
     
@@ -70,7 +70,7 @@ dependencies {
     
     ListView Adapter Sample
     
-    ```
+    ```java
     // 构造适配器
     SimpleListAdapter<Person> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
     
