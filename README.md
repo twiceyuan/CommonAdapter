@@ -6,7 +6,7 @@
 
 # 引用
 
-```grovy
+```groovy
 allprojects {
 	repositories {
 		...
@@ -14,7 +14,7 @@ allprojects {
 	}
 }
 ```
-```grovy
+```groovy
 dependencies {
   compile 'com.github.twiceyuan:CommonAdapter:0.1'
 }
@@ -47,42 +47,41 @@ dependencies {
 
 2. 创建适配器并配置到 ListView 或者 RecyclerView 上
 
-    RecyclerView Adapter Sample
+    RecyclerView Adapter
     
     ```java
-    // 构造
+    // build
     SimpleRecyclerAdapter<Person> recyclerAdapter = new SimpleRecyclerAdapter<>(this, PersonHolder.class);
     
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-    // 配置
+    // setup
     mRecyclerView.setAdapter(recyclerAdapter);
-    
-    // 添加模拟数据
-    mockData(recyclerAdapter);
-    
-    // 配置 name textView 的点击监听
-    recyclerAdapter.setOnElementClickListener(R.id.name, new SimpleRecyclerAdapter.OnViewClickListener<Person>() {
-        @Override public void onClick(int position, Person person) {
-            toast("你点的是 RecyclerView 中" + person.name + "的名字");
-        }
-    });
     ```
     
-    ListView Adapter Sample
+    ListView Adapter
     
     ```java
-    // 构造适配器
+    // build
     SimpleListAdapter<Person> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
-    
+    // setup
     mListView.setAdapter(listAdapter);
-    
-    // 添加模拟数据
-    mockData(listAdapter);
-    
-    // 配置 name textView 的点击监听
-    listAdapter.setOnElementClickListener(R.id.name, new SimpleListAdapter.OnViewClickListener<Person>() {
-        @Override public void onClick(int position, Person person) {
-            toast("你点击的是 ListView 中" + person.name + "的名字");
+    ```
+
+    配置监听器
+    ```
+    recyclerAdapter.setOnBindListener(new SimpleRecyclerAdapter.OnBindListener<Person, PersonHolder>() {
+        @Override public void onBind(int position, final Person person, PersonHolder holder) {
+            // holder 用于直接对 view 配置监听器
+            holder.name.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    toast(person.name);
+                }
+            });
+            holder.email.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    toast(person.email);
+                }
+            });
         }
     });
     ```
@@ -93,17 +92,17 @@ dependencies {
 
 # License
 ```
-    Copyright 2016 twiceYuan.
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-       http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Copyright 2016 twiceYuan.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
