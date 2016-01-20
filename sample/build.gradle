@@ -28,8 +28,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile ('com.github.twiceyuan:CommonAdapter:08375a4b81@aar') {
-        transitive = true
-    }
+    compile 'com.github.twiceyuan:CommonAdapter:0.2.1'
     // compile project(':library')
 }
