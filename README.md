@@ -1,4 +1,7 @@
-# CommonAdapter[![](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
+# CommonAdapter
+
+[![](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
+
 一个通用的 ListView / RecyclerView 适配器
 
 # 引用
