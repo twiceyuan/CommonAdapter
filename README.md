@@ -16,13 +16,13 @@ allprojects {
 ```
 ```groovy
 dependencies {
-  compile 'com.github.twiceyuan:CommonAdapter:0.1'
+  compile 'com.github.twiceyuan:CommonAdapter:0.2'
 }
 ```
 
 # 使用
 
-1. 创建一个 ViewHolder 并继承 CommonHolder<T>，T 为实体数据类型
+1. 创建一个 ViewHolder 并继承 CommonHolder\<T\>，T 为实体数据类型
 
   ```java
   // 绑定布局资源
@@ -51,7 +51,8 @@ dependencies {
     
     ```java
     // build
-    SimpleRecyclerAdapter<Person> recyclerAdapter = new SimpleRecyclerAdapter<>(this, PersonHolder.class);
+    SimpleRecyclerAdapter<Person, PersonHolder> recyclerAdapter =
+                    new SimpleRecyclerAdapter<>(this, PersonHolder.class);
     
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     // setup
@@ -62,27 +63,19 @@ dependencies {
     
     ```java
     // build
-    SimpleListAdapter<Person> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
+    SimpleListAdapter<Person, PersonHolder> listAdapter =
+                    new SimpleListAdapter<>(this, PersonHolder.class);
+
     // setup
     mListView.setAdapter(listAdapter);
     ```
 
     配置监听器
-    ```
-    recyclerAdapter.setOnBindListener(new SimpleRecyclerAdapter.OnBindListener<Person, PersonHolder>() {
-        @Override public void onBind(int position, final Person person, PersonHolder holder) {
-            // holder 用于直接对 view 配置监听器
-            holder.name.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    toast(person.name);
-                }
-            });
-            holder.email.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    toast(person.email);
-                }
-            });
-        }
+    ```java
+    recyclerAdapter.setOnBindListener((position, person, holder) -> {
+        // holder 用于直接对 view 配置监听器
+        holder.name.setOnClickListener((v) -> toast(person.name));
+        holder.email.setOnClickListener((v) -> toast(person.email));
     });
     ```
 
