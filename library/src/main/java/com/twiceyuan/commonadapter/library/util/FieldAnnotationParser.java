@@ -64,7 +64,7 @@ public class FieldAnnotationParser {
      * It will throw a {@link ClassCastException} if the field and the view with the given ID have different types.
      *
      * @param object     object where the annotation is.
-     * @param viewFinder callback that provides a way of finding the view by the viewID given in the annotation.
+     * @param viewFinder callback that provides a way with finding the view by the viewID given in the annotation.
      */
     private static void setViewFields(final Object object, final ViewFinder viewFinder) {
         Field[] fields = object.getClass().getDeclaredFields();

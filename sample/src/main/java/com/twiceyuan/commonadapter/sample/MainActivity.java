@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
          * RecyclerView Adapter Sample
          */
         // build adapter
-        SimpleRecyclerAdapter<Person> recyclerAdapter = new SimpleRecyclerAdapter<>(this, PersonHolder.class);
+        SimpleRecyclerAdapter<Person, PersonHolder> recyclerAdapter =
+                new SimpleRecyclerAdapter<>(this, PersonHolder.class);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // set adapter
@@ -45,15 +46,18 @@ public class MainActivity extends AppCompatActivity {
         mockData(recyclerAdapter);
 
         // set elements click listener
-        recyclerAdapter.setOnElementClickListener(R.id.name, new SimpleRecyclerAdapter.OnViewClickListener<Person>() {
-            @Override public void onClick(int position, Person person) {
-                toast("你点的是 RecyclerView 中" + person.name + "的名字");
-            }
-        });
-
-        recyclerAdapter.setOnElementClickListener(R.id.email, new SimpleRecyclerAdapter.OnViewClickListener<Person>() {
-            @Override public void onClick(int position, Person person) {
-                toast("你点的是 RecyclerView 中" + person.name + "的邮箱");
+        recyclerAdapter.setOnBindListener(new SimpleRecyclerAdapter.OnBindListener<Person, PersonHolder>() {
+            @Override public void onBind(int position, final Person person, PersonHolder holder) {
+                holder.name.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        toast(person.name);
+                    }
+                });
+                holder.email.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        toast(person.email);
+                    }
+                });
             }
         });
 
@@ -61,21 +65,24 @@ public class MainActivity extends AppCompatActivity {
          * ListView Adapter Sample
          */
         // build adapter
-        SimpleListAdapter<Person> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
+        SimpleListAdapter<Person, PersonHolder> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
         mListView.setAdapter(listAdapter);
 
         // mock data
         mockData(listAdapter);
 
-        listAdapter.setOnElementClickListener(R.id.name, new SimpleListAdapter.OnViewClickListener<Person>() {
-            @Override public void onClick(int position, Person person) {
-                toast("你点击的是 ListView 中" + person.name + "的名字");
-            }
-        });
-
-        listAdapter.setOnElementClickListener(R.id.email, new SimpleListAdapter.OnViewClickListener<Person>() {
-            @Override public void onClick(int position, Person person) {
-                toast("你点击的是 ListView 中" + person.name + "的邮箱");
+        listAdapter.setOnBindListener(new SimpleListAdapter.OnBindListener<Person, PersonHolder>() {
+            @Override public void onBind(int position, final Person person, PersonHolder holder) {
+                holder.name.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        toast(person.name);
+                    }
+                });
+                holder.email.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        toast(person.email);
+                    }
+                });
             }
         });
 

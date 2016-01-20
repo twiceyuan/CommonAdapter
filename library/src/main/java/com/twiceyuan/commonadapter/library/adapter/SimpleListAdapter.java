@@ -1,7 +1,6 @@
 package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,30 +12,26 @@ import com.twiceyuan.commonadapter.library.util.FieldAnnotationParser;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by twiceYuan on 1/20/16.
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
  */
-public class SimpleListAdapter<T> extends BaseAdapter implements Adapter<T> {
+public class SimpleListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapter implements Adapter<T> {
 
     private LayoutInflater                       mInflater;
     private List<T>                              mData;
     private Class<? extends CommonHolder<T>>     mHolderClass;
     private Integer                              mLayoutId;
-    private Map<Integer, OnViewClickListener<T>> mClickListenerMap;
+    private OnBindListener<T, VH>            mOnBindListener;
 
     public SimpleListAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
         mHolderClass = holderClass;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
         mLayoutId = AdapterUtil.parseItemLayoutId(mHolderClass);
-        mClickListenerMap = new HashMap<>();
     }
 
     @Override public int getCount() {
@@ -61,7 +56,8 @@ public class SimpleListAdapter<T> extends BaseAdapter implements Adapter<T> {
         //noinspection unchecked
         CommonHolder<T> holder = (CommonHolder<T>) convertView.getTag();
         holder.bindData(getItem(position));
-        handlerClick(convertView, position);
+        //noinspection unchecked
+        bindListener(convertView, position, (VH) holder);
         return convertView;
     }
 
@@ -90,27 +86,21 @@ public class SimpleListAdapter<T> extends BaseAdapter implements Adapter<T> {
         notifyDataSetChanged();
     }
 
-    public void handlerClick(View parentView, final int position) {
-
-        Set<Integer> ids = mClickListenerMap.keySet();
-        for (final Integer id : ids) {
-            View view = parentView.findViewById(id);
-            if (view != null) {
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        mClickListenerMap.get(id).onClick(position, getItem(position));
-                    }
-                });
-            }
+    private void bindListener(View parentView, final int position, final VH holder) {
+        if (mOnBindListener != null) {
+            mOnBindListener.onBind(position, getItem(position), holder);
         }
     }
 
-    public interface OnViewClickListener<T> {
-        void onClick(int position, T t);
+    public interface OnBindListener<T, VH> {
+        void onBind(int position, T t, VH holder);
     }
 
-    public void setOnElementClickListener(@IdRes int id, OnViewClickListener<T> listener) {
-        mClickListenerMap.put(id, listener);
-        notifyDataSetChanged();
+    public void setOnBindListener(OnBindListener<T, VH> listener) {
+        mOnBindListener = listener;
+    }
+
+    public interface OnItemClickListener<T> {
+        void onClick(int position, T t);
     }
 }
