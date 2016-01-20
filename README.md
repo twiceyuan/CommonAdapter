@@ -47,58 +47,49 @@ dependencies {
 
 2. 创建适配器并配置到 ListView 或者 RecyclerView 上
 
+    RecyclerView Adapter Sample
+    
     ```
-    /**
-     * RecyclerView Adapter Sample
-     */
-    // build adapter
+    // 构造
     SimpleRecyclerAdapter<Person> recyclerAdapter = new SimpleRecyclerAdapter<>(this, PersonHolder.class);
     
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-    // set adapter
+    // 配置
     mRecyclerView.setAdapter(recyclerAdapter);
     
-    // mock data
+    // 添加模拟数据
     mockData(recyclerAdapter);
     
-    // set elements click listener
+    // 配置 name textView 的点击监听
     recyclerAdapter.setOnElementClickListener(R.id.name, new SimpleRecyclerAdapter.OnViewClickListener<Person>() {
         @Override public void onClick(int position, Person person) {
             toast("你点的是 RecyclerView 中" + person.name + "的名字");
         }
     });
+    ```
     
-    recyclerAdapter.setOnElementClickListener(R.id.email, new SimpleRecyclerAdapter.OnViewClickListener<Person>() {
-        @Override public void onClick(int position, Person person) {
-            toast("你点的是 RecyclerView 中" + person.name + "的邮箱");
-        }
-    });
+    ListView Adapter Sample
     
-    /**
-     * ListView Adapter Sample
-     */
-    // build adapter
+    ```
+    // 构造适配器
     SimpleListAdapter<Person> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
+    
     mListView.setAdapter(listAdapter);
     
-    // mock data
+    // 添加模拟数据
     mockData(listAdapter);
     
+    // 配置 name textView 的点击监听
     listAdapter.setOnElementClickListener(R.id.name, new SimpleListAdapter.OnViewClickListener<Person>() {
         @Override public void onClick(int position, Person person) {
             toast("你点击的是 ListView 中" + person.name + "的名字");
         }
     });
-    
-    listAdapter.setOnElementClickListener(R.id.email, new SimpleListAdapter.OnViewClickListener<Person>() {
-        @Override public void onClick(int position, Person person) {
-            toast("你点击的是 ListView 中" + person.name + "的邮箱");
-        }
-    });
     ```
 
 # 感谢
-EasyAdapter https://github.com/ribot/easy-adapter
+
+* EasyAdapter https://github.com/ribot/easy-adapter
 
 # License
 ```
