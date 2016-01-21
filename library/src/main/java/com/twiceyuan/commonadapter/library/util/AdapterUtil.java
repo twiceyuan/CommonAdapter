@@ -22,11 +22,6 @@ import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-/**
- * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
- */
 public class AdapterUtil {
 
     //Create a new ItemViewHolder using Java reflection
@@ -50,7 +45,7 @@ public class AdapterUtil {
     public static Integer parseItemLayoutId(Class<? extends CommonHolder> itemViewHolderClass) {
         Integer itemLayoutId = ClassAnnotationParser.getLayoutId(itemViewHolderClass);
         if (itemLayoutId == null) {
-            throw new IllegalStateException("没找到布局");
+            throw new LayoutNotFoundException();
         }
         return itemLayoutId;
     }

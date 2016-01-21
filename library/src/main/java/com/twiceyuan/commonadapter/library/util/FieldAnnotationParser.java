@@ -21,11 +21,6 @@ import com.twiceyuan.commonadapter.library.ViewId;
 
 import java.lang.reflect.Field;
 
-/**
- * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
- */
 public class FieldAnnotationParser {
     /**
      * Parse {@link ViewId} annotation and try to assign the view with that id to the annotated field.

@@ -19,11 +19,6 @@ import com.twiceyuan.commonadapter.library.LayoutId;
 
 import java.lang.annotation.Annotation;
 
-/**
- * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
- */
 public class ClassAnnotationParser {
 
     /**
