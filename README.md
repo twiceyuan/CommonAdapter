@@ -16,7 +16,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-  compile 'com.github.twiceyuan:CommonAdapter:0.2'
+  compile 'com.github.twiceyuan:CommonAdapter:0.2.2'
 }
 ```
 
