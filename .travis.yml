@@ -14,3 +14,6 @@ android:
     - tools
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - android-$ANDROID_API_LEVEL
+    - extra-google-m2repository
+
+script: ./gradlew connectedAndroidTest
