@@ -1,8 +1,16 @@
 language: android
+jdk: oraclejdk7
+cache: false
+sudo: false
+env:
+  global:
+    - ANDROID_API_LEVEL=23
+    - ANDROID_BUILD_TOOLS_VERSION=23.0.1
+    - ANDROID_ABI=armeabi-v7a
+    - ADB_INSTALL_TIMEOUT=8
 android:
   components:
+    - platform-tools
     - tools
-    - build-tools-23.0.2
-    - android-23
-    - extra-android-support
-    - extra-android-m2repository
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_API_LEVEL
