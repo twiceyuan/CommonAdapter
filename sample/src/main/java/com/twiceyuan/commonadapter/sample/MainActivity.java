@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.twiceyuan.commonadapter.library.adapter.Adapter;
-import com.twiceyuan.commonadapter.library.adapter.SimpleListAdapter;
-import com.twiceyuan.commonadapter.library.adapter.SimpleRecyclerAdapter;
+import com.twiceyuan.commonadapter.library.adapter.DataManager;
+import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
+import com.twiceyuan.commonadapter.library.adapter.CommonListAdapter;
 import com.twiceyuan.commonadapter.sample.model.Person;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
          * RecyclerView Adapter Sample
          */
         // build adapter
-        SimpleRecyclerAdapter<Person, PersonHolder> recyclerAdapter =
-                new SimpleRecyclerAdapter<>(this, PersonHolder.class);
+        CommonAdapter<Person, PersonHolder> recyclerAdapter =
+                new CommonAdapter<>(this, PersonHolder.class);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // set adapter
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         mockData(recyclerAdapter);
 
         // set elements click listener
-        recyclerAdapter.setOnBindListener(new SimpleRecyclerAdapter.OnBindListener<Person, PersonHolder>() {
+        recyclerAdapter.setOnBindListener(new CommonAdapter.OnBindListener<Person, PersonHolder>() {
             @Override public void onBind(int position, final Person person, PersonHolder holder) {
                 holder.name.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
@@ -65,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
          * ListView Adapter Sample
          */
         // build adapter
-        SimpleListAdapter<Person, PersonHolder> listAdapter = new SimpleListAdapter<>(this, PersonHolder.class);
+        CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
         mListView.setAdapter(listAdapter);
 
         // mock data
         mockData(listAdapter);
 
-        listAdapter.setOnBindListener(new SimpleListAdapter.OnBindListener<Person, PersonHolder>() {
+        listAdapter.setOnBindListener(new CommonListAdapter.OnBindListener<Person, PersonHolder>() {
             @Override public void onBind(int position, final Person person, PersonHolder holder) {
                 holder.name.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    void mockData(Adapter<Person> personAdapter) {
+    void mockData(DataManager<Person> personAdapter) {
         personAdapter.add(new Person("twiceYuan0", "twiceyuan@gmail.com"));
         personAdapter.add(new Person("twiceYuan1", "twiceyuan@gmail.com"));
         personAdapter.add(new Person("twiceYuan2", "twiceyuan@gmail.com"));
