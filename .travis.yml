@@ -7,29 +7,12 @@ sudo: false
 
 android:
   components:
-   # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
-
-    # The BuildTools version used by your project
-    - build-tools-23.0.1
-
-    # The SDK version used to compile your project
+    - tools
+    - build-tools-23.0.2
     - android-23
-
-    # Additional components
-    # - extra-google-google_play_services
-    # - extra-google-m2repository
+    - extra-android-support
     - extra-android-m2repository
-    # - addon-google_apis-google-19
-    # - add-on
-    # - extra
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
-    # - sys-img-x86-android-17
+    - extra-google-m2repository
 
   licenses:
    - 'android-sdk-license-.+'
