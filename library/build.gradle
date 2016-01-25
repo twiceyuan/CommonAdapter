@@ -14,9 +14,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            // 发布版不进行混淆
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
