@@ -1,5 +1,6 @@
 # CommonAdapter
 
+[![Build Status](https://travis-ci.org/twiceyuan/CommonAdapter.svg?branch=master)](https://travis-ci.org/twiceyuan/CommonAdapter)
 [![](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
 
 一个通用的 ListView / RecyclerView 适配器
