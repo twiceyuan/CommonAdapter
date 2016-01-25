@@ -1,4 +1,12 @@
+before_install:
+ - chmod +x gradlew
+
 language: android
-env:
-  matrix:
-    - ANDROID_SDKS=android-19,sysimg-19  ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+android:
+  components:
+    - tools
+    - build-tools-23.0.2
+    - android-23
+    - extra-android-support
+    - extra-android-m2repository
+    - extra-google-m2repository
