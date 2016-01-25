@@ -8,8 +8,9 @@ import android.support.v7.widget.RecyclerView;
  * Site: http://twiceyuan.com
  *
  * common holder wrapper to RecyclerView holder
+ * 改为 final 避免错误继承
  */
-public class CommonRecyclerHolder<T> extends RecyclerView.ViewHolder {
+public final class CommonRecyclerHolder<T> extends RecyclerView.ViewHolder {
 
     private CommonHolder<T> mCommonHolder;
 

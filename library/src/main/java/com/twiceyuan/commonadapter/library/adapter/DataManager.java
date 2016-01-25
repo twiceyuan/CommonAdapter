@@ -7,10 +7,10 @@ import java.util.Collection;
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
  */
-public interface Adapter<T> {
-    void addAll(Collection<T> list);
-    void add(T t);
+public interface DataManager<T> {
     void clear();
+    void add(T t);
+    void addAll(Collection<T> list);
     void remove(T t);
     void removeAll(Collection<T> ts);
 }

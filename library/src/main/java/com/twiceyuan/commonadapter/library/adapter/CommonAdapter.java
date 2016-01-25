@@ -19,9 +19,11 @@ import java.util.List;
  * Created by twiceYuan on 1/20/16.
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
+ *
+ * 通用 RecyclerView Adapter
  */
-public class SimpleRecyclerAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.Adapter<CommonRecyclerHolder<T>>
-        implements Adapter<T> {
+public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.Adapter<CommonRecyclerHolder<T>>
+        implements DataManager<T> {
 
     private Class<? extends CommonHolder<T>> mHolderClass;
     private List<T>                          mData;
@@ -30,7 +32,7 @@ public class SimpleRecyclerAdapter<T, VH extends CommonHolder<T>> extends Recycl
     private OnBindListener<T, VH>            mOnBindListener;
     private OnItemClickListener<T>           mItemClickListener;
 
-    public SimpleRecyclerAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
+    public CommonAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
         mHolderClass = holderClass;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
@@ -61,27 +63,22 @@ public class SimpleRecyclerAdapter<T, VH extends CommonHolder<T>> extends Recycl
 
     public void addAll(Collection<T> list) {
         mData.addAll(list);
-        notifyDataSetChanged();
     }
 
     public void add(T t) {
         mData.add(t);
-        notifyDataSetChanged();
     }
 
     public void clear() {
         mData.clear();
-        notifyDataSetChanged();
     }
 
     public void remove(T t) {
         mData.remove(t);
-        notifyDataSetChanged();
     }
 
     public void removeAll(Collection<T> ts) {
         mData.removeAll(ts);
-        notifyDataSetChanged();
     }
 
     private void bindListener(View parentView, final int position, final VH holder) {
