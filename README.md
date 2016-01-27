@@ -48,30 +48,36 @@ dependencies {
 
 2. 创建适配器并配置到 ListView 或者 RecyclerView 上
 
-    RecyclerView Adapter
+    ** RecyclerView Adapter **
     
     ```java
     // build
-    SimpleRecyclerAdapter<Person, PersonHolder> recyclerAdapter =
-                    new SimpleRecyclerAdapter<>(this, PersonHolder.class);
-    
+    // build adapter
+    CommonAdapter<Person, PersonHolder> recyclerAdapter =
+            new CommonAdapter<>(this, PersonHolder.class);
+
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-    // setup
+    // set adapter
     mRecyclerView.setAdapter(recyclerAdapter);
+
+    // mock data
+    mockData(recyclerAdapter);
     ```
     
-    ListView Adapter
+    ** ListView Adapter **
     
     ```java
     // build
-    SimpleListAdapter<Person, PersonHolder> listAdapter =
-                    new SimpleListAdapter<>(this, PersonHolder.class);
-
-    // setup
+    // build adapter
+    CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
     mListView.setAdapter(listAdapter);
+
+    // mock data
+    mockData(listAdapter);
     ```
 
-    配置监听器
+    ** Setup listener (by holder) ** 
+    
     ```java
     recyclerAdapter.setOnBindListener((position, person, holder) -> {
         // holder 用于直接对 view 配置监听器
