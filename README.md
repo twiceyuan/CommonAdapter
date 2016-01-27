@@ -48,7 +48,7 @@ dependencies {
 
 2. 创建适配器并配置到 ListView 或者 RecyclerView 上
 
-    ** RecyclerView Adapter **
+    **RecyclerView Adapter**
     
     ```java
     // build
@@ -64,7 +64,7 @@ dependencies {
     mockData(recyclerAdapter);
     ```
     
-    ** ListView Adapter **
+    **ListView Adapter**
     
     ```java
     // build
@@ -76,7 +76,7 @@ dependencies {
     mockData(listAdapter);
     ```
 
-    ** Setup listener (by holder) ** 
+    **Setup listener (by holder)** 
     
     ```java
     recyclerAdapter.setOnBindListener((position, person, holder) -> {
