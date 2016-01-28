@@ -10,7 +10,7 @@
 ```groovy
 allprojects {
 	repositories {
-		...
+		// ...
 		maven { url "https://jitpack.io" }
 	}
 }
@@ -51,12 +51,10 @@ dependencies {
     **RecyclerView Adapter**
     
     ```java
-    // build
     // build adapter
     CommonAdapter<Person, PersonHolder> recyclerAdapter =
             new CommonAdapter<>(this, PersonHolder.class);
 
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     // set adapter
     mRecyclerView.setAdapter(recyclerAdapter);
 
@@ -67,7 +65,6 @@ dependencies {
     **ListView Adapter**
     
     ```java
-    // build
     // build adapter
     CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
     mListView.setAdapter(listAdapter);
