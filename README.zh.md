@@ -3,11 +3,9 @@
 [![Build Status](https://travis-ci.org/twiceyuan/CommonAdapter.svg?branch=master)](https://travis-ci.org/twiceyuan/CommonAdapter)
 [![](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
 
-a common ListView / RecyclerView adapter
+一个通用的 ListView / RecyclerView 适配器
 
-受不了蹩脚英文可以看![中文](README.zh.md)
-
-# Setup
+# 引用
 
 ```groovy
 allprojects {
@@ -23,16 +21,16 @@ dependencies {
 }
 ```
 
-# Usage
+# 使用
 
-1. create a ViewHolder extends CommonHolder\<T\>，T is a model class
+1. 创建一个 ViewHolder 并继承 CommonHolder\<T\>，T 为实体数据类型
 
   ```java
-  // bind layout id
+  // 绑定布局资源
   @LayoutId(R.layout.item_person)
   public class PersonHolder extends CommonHolder<Person> {
   
-      // bind View id
+      // 绑定 View 资源
       @ViewId(R.id.name) TextView name;
       @ViewId(R.id.email) TextView email;
   
@@ -40,7 +38,7 @@ dependencies {
           super(itemView);
       }
   
-      // bind data
+      // 绑定数据
       @Override public void bindData(Person person) {
           name.setText(person.name);
           email.setText(person.email);
@@ -48,7 +46,7 @@ dependencies {
   }
   ```
 
-2. Create a common adapter and call setAdapter method of list view or recycler view.
+2. 创建适配器并配置到 ListView 或者 RecyclerView 上
 
     **RecyclerView Adapter**
     
@@ -79,7 +77,7 @@ dependencies {
     
     ```java
     recyclerAdapter.setOnBindListener((position, person, holder) -> {
-        // holder is used to bind event listener
+        // holder 用于直接对 view 配置监听器
         holder.name.setOnClickListener((v) -> toast(person.name));
         holder.email.setOnClickListener((v) -> toast(person.email));
     });
@@ -94,7 +92,7 @@ dependencies {
 }
 ```
 
-# Thanks
+# 感谢
 
 * EasyAdapter https://github.com/ribot/easy-adapter
 
