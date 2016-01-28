@@ -5,7 +5,7 @@
 
 a common ListView / RecyclerView adapter
 
-受不了蹩脚英文可以看![中文](README.zh.md)
+[中文](README.zh.md)
 
 # Setup
 
