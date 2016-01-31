@@ -1,10 +1,12 @@
 # CommonAdapter
 
 [![Build Status](https://travis-ci.org/twiceyuan/CommonAdapter.svg?branch=master)](https://travis-ci.org/twiceyuan/CommonAdapter)
-[![](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
-[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Jitpack](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
+[![Apache 2.0](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 一个通用的 ListView / RecyclerView 适配器
+
+[English](README.md)
 
 # 引用
 
@@ -52,29 +54,24 @@ dependencies {
     **RecyclerView Adapter**
     
     ```java
-    // build adapter
-    CommonAdapter<Person, PersonHolder> recyclerAdapter =
-            new CommonAdapter<>(this, PersonHolder.class);
+    // 构造适配器
+    CommonAdapter<Person, PersonHolder> recyclerAdapter = new CommonAdapter<>(this, PersonHolder.class);
 
-    // set adapter
+    // 配置适配器
     mRecyclerView.setAdapter(recyclerAdapter);
-
-    // mock data
-    mockData(recyclerAdapter);
     ```
     
     **ListView Adapter**
     
     ```java
-    // build adapter
+    // 构造适配器
     CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
+    
+    // 配置适配器
     mListView.setAdapter(listAdapter);
-
-    // mock data
-    mockData(listAdapter);
     ```
 
-    **Setup listener (by holder)** 
+    **配置监听器 (通过 Holder)** 
     
     ```java
     recyclerAdapter.setOnBindListener((position, person, holder) -> {
@@ -84,7 +81,7 @@ dependencies {
     });
     ```
 
-# Proguard
+# 混淆过滤（Proguard）
 
 ```
 -keepattributes *Annotation*
@@ -97,7 +94,7 @@ dependencies {
 
 * EasyAdapter https://github.com/ribot/easy-adapter
 
-# License
+# 许可
 ```
 Copyright 2016 twiceYuan.
 

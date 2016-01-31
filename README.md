@@ -1,8 +1,8 @@
 # CommonAdapter
 
 [![Build Status](https://travis-ci.org/twiceyuan/CommonAdapter.svg?branch=master)](https://travis-ci.org/twiceyuan/CommonAdapter)
-[![](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
-[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Jitpack](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter)
+[![Apache 2.0](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 a common ListView / RecyclerView adapter
 
@@ -55,14 +55,10 @@ dependencies {
     
     ```java
     // build adapter
-    CommonAdapter<Person, PersonHolder> recyclerAdapter =
-            new CommonAdapter<>(this, PersonHolder.class);
+    CommonAdapter<Person, PersonHolder> recyclerAdapter = new CommonAdapter<>(this, PersonHolder.class);
 
     // set adapter
     mRecyclerView.setAdapter(recyclerAdapter);
-
-    // mock data
-    mockData(recyclerAdapter);
     ```
     
     **ListView Adapter**
@@ -71,9 +67,6 @@ dependencies {
     // build adapter
     CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
     mListView.setAdapter(listAdapter);
-
-    // mock data
-    mockData(listAdapter);
     ```
 
     **Setup listener (by holder)** 
