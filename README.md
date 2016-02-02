@@ -6,6 +6,8 @@
 
 a common ListView / RecyclerView adapter
 
+![Intro](art/banner.png)
+
 [中文](README.zh.md)
 
 # Setup
