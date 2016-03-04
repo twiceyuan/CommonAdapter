@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="#f0f0f0"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="4dp">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:textSize="16sp"
-        android:padding="4dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:background="#f0f0f0"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textContent"
-        android:textSize="14sp"
-        android:padding="4dp"
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/textContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="4dp"/>
 
 </LinearLayout>

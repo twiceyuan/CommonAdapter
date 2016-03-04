@@ -17,10 +17,17 @@ import com.twiceyuan.commonadapter.sample.viewTypeSample.model.Photo;
  */
 public class ListViewTypeMapper implements ViewTypeMapper {
 
+    /**
+     * 定义两种 ViewType 类型常量
+     */
     public static final int VIEW_TYPE_ARTICLE = 1;
     public static final int VIEW_TYPE_PHOTO   = 2;
 
+    /**
+     * 实体/Position -> ViewType
+     */
     @Override public int getViewType(ViewTypeItem item, int position) {
+
         if (item instanceof Photo) {
             return VIEW_TYPE_PHOTO;
         }
@@ -30,6 +37,9 @@ public class ListViewTypeMapper implements ViewTypeMapper {
         return 0;
     }
 
+    /**
+     * ViewType -> ViewHolder
+     */
     @Override public Class<? extends CommonHolder<? extends ViewTypeItem>> getHolder(int viewType) {
         if (viewType == VIEW_TYPE_ARTICLE) {
             return ArticleHolder.class;

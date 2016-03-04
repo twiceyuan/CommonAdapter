@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.ViewTypeItem;
@@ -35,6 +36,17 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
             adapter.add(mockArticle());
             adapter.add(mockPhoto());
         }
+
+        adapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener<ViewTypeItem>() {
+            @Override public void onClick(int position, ViewTypeItem item) {
+                if (item instanceof Article) {
+                    Toast.makeText(ViewTypeSampleActivity.this, "你点击了一篇文章，位置" + position, Toast.LENGTH_SHORT).show();
+                }
+                if (item instanceof Photo) {
+                    Toast.makeText(ViewTypeSampleActivity.this, "你点击了一张照片，位置" + position, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public Article mockArticle() {

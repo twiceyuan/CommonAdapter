@@ -17,8 +17,8 @@ import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 @LayoutId(R.layout.item_person)
 public class PersonHolder extends CommonHolder<Person> {
 
-    @ViewId(R.id.name) TextView name;
-    @ViewId(R.id.email) TextView email;
+    @ViewId(R.id.name) public  TextView name;
+    @ViewId(R.id.email) public TextView email;
 
     public PersonHolder(View itemView) {
         super(itemView);
