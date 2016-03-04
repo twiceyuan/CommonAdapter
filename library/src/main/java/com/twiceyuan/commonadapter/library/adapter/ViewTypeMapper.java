@@ -7,24 +7,16 @@ import com.twiceyuan.commonadapter.library.holder.CommonHolder;
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
  * <p/>
- * ViewType 到 CommonHolder 的关系映射
+ * 描述实体 => CommonHolder 的关系映射，来简化 ViewType 逻辑
  */
 public interface ViewTypeMapper {
 
     /**
      * 提供从实体或者 position 到 viewType 的映射
      *
-     * @param item        实体
+     * @param item     实体
      * @param position item 所在的位置
-     * @return 该位置所使用的 viewType（建议在 Holder 中定义 public 常量）
+     * @return 该位置所使用的 viewHolder（建议在 Holder 中定义 public 常量）
      */
-    int getViewType(ViewTypeItem item, int position);
-
-    /**
-     * ViewType 到 ViewHolder 的映射
-     *
-     * @param viewType RecyclerView 中的 viewType
-     * @return CommonHolder 的具体实现
-     */
-    Class<? extends CommonHolder<? extends ViewTypeItem>> getHolder(int viewType);
+    Class<? extends CommonHolder<? extends ViewTypeItem>> getViewType(ViewTypeItem item, int position);
 }

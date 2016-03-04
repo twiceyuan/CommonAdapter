@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.twiceyuan.commonadapter.library.adapter.DataManager;
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.CommonListAdapter;
+import com.twiceyuan.commonadapter.library.adapter.DataManager;
 import com.twiceyuan.commonadapter.sample.R;
 import com.twiceyuan.commonadapter.sample.simpleSample.holder.PersonHolder;
 import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
@@ -72,6 +72,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
         // build adapter
         CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
         mListView.setAdapter(listAdapter);
+        mListView.setDivider(null);
 
         // mock data
         mockData(listAdapter);
@@ -139,7 +140,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
     }
 
     void mockData(DataManager<Person> personAdapter) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             personAdapter.add(new Person("twiceYuan" + i, "twiceyuan@gmail.com"));
         }
     }

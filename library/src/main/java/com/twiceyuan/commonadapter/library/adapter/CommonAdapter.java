@@ -27,7 +27,6 @@ import java.util.Map;
 public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.Adapter<CommonRecyclerHolder<T>>
         implements DataManager<T> {
 
-
     private List<T>                          mData;
     private LayoutInflater                   mInflater;
     private Integer                          mLayoutId;
@@ -36,7 +35,8 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     private ViewTypeMapper                   mViewTypeMapper;
     private Class<? extends CommonHolder<T>> mHolderClass;
 
-    private Map<Class<? extends CommonHolder>, Integer> mHolderLayouts;
+    private Map<Class<? extends CommonHolder>, Integer> mHolderLayouts; // viewHolder => layout id
+    private Map<Integer, Class<? extends CommonHolder>> mViewTypeHolders; // viewType (hashCode) => CommonHolder
 
     @SuppressWarnings("unused") public CommonAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
         mHolderClass = holderClass;
@@ -50,6 +50,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
         mHolderLayouts = new HashMap<>();
+        mViewTypeHolders = new HashMap<>();
     }
 
     public T getItem(int position) {
@@ -69,7 +70,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
 
         // 如果配置的是 HolderClass 和 ViewType 的映射，则通过 viewType 参数获得 holderClass 后执行相同操作
         if (mViewTypeMapper != null) {
-            Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass = mViewTypeMapper.getHolder(viewType);
+            Class<? extends CommonHolder> holderClass = mViewTypeHolders.get(viewType);
             Integer layoutId = mHolderLayouts.get(holderClass);
             View view;
             if (layoutId == null) {
@@ -91,7 +92,11 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         if (mViewTypeMapper == null) {
             return super.getItemViewType(position);
         } else {
-            return mViewTypeMapper.getViewType((ViewTypeItem) getItem(position), position);
+            // 使用 Holder 的 class 对象的 hashCode 作为 viewType，简化 ViewType 使用的逻辑
+            Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass =
+                    mViewTypeMapper.getViewType((ViewTypeItem) getItem(position), position);
+            mViewTypeHolders.put(holderClass.hashCode(), holderClass);
+            return holderClass.hashCode();
         }
     }
 
