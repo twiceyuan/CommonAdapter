@@ -1,4 +1,4 @@
-package com.twiceyuan.commonadapter.sample.model;
+package com.twiceyuan.commonadapter.sample.simpleSample.model;
 
 /**
  * Created by twiceYuan on 1/20/16.

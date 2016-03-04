@@ -13,30 +13,43 @@ import com.twiceyuan.commonadapter.library.util.FieldAnnotationParser;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by twiceYuan on 1/20/16.
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
- *
+ * <p/>
  * 通用 RecyclerView Adapter
  */
 public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.Adapter<CommonRecyclerHolder<T>>
         implements DataManager<T> {
 
-    private Class<? extends CommonHolder<T>> mHolderClass;
+
     private List<T>                          mData;
     private LayoutInflater                   mInflater;
     private Integer                          mLayoutId;
     private OnBindListener<T, VH>            mOnBindListener;
     private OnItemClickListener<T>           mItemClickListener;
+    private ViewTypeMapper                   mViewTypeMapper;
+    private Class<? extends CommonHolder<T>> mHolderClass;
 
-    public CommonAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
+    private Map<Class<? extends CommonHolder>, Integer> mHolderLayouts;
+
+    @SuppressWarnings("unused") public CommonAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
         mHolderClass = holderClass;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
         mLayoutId = AdapterUtil.parseItemLayoutId(holderClass);
+    }
+
+    @SuppressWarnings("unused") public CommonAdapter(Context context, ViewTypeMapper mapper) {
+        mViewTypeMapper = mapper;
+        mData = new ArrayList<>();
+        mInflater = LayoutInflater.from(context);
+        mHolderLayouts = new HashMap<>();
     }
 
     public T getItem(int position) {
@@ -44,11 +57,42 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     }
 
     @Override public CommonRecyclerHolder<T> onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(mLayoutId, parent, false);
-        //noinspection unchecked
-        CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(AdapterUtil.createViewHolder(view, mHolderClass));
-        FieldAnnotationParser.setViewFields(holder.getCommonHolder(), view);
-        return holder;
+
+        // 如果配置了 HolderClass 则直接通过反射创建
+        if (mHolderClass != null) {
+            View view = mInflater.inflate(mLayoutId, parent, false);
+            //noinspection unchecked
+            CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(AdapterUtil.createViewHolder(view, mHolderClass));
+            FieldAnnotationParser.setViewFields(holder.getCommonHolder(), view);
+            return holder;
+        }
+
+        // 如果配置的是 HolderClass 和 ViewType 的映射，则通过 viewType 参数获得 holderClass 后执行相同操作
+        if (mViewTypeMapper != null) {
+            Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass = mViewTypeMapper.getHolder(viewType);
+            Integer layoutId = mHolderLayouts.get(holderClass);
+            View view;
+            if (layoutId == null) {
+                layoutId = AdapterUtil.parseItemLayoutId(holderClass);
+                mHolderLayouts.put(holderClass, layoutId);
+            }
+            view = mInflater.inflate(layoutId, parent, false);
+            //noinspection unchecked
+            CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(AdapterUtil.createViewHolder(view, holderClass));
+            FieldAnnotationParser.setViewFields(holder.getCommonHolder(), view);
+            return holder;
+        }
+
+        // 如果都没有，就抛出异常
+        throw new RuntimeException("CommonHolder or HolderMapper must be configure.");
+    }
+
+    @Override public int getItemViewType(int position) {
+        if (mViewTypeMapper == null) {
+            return super.getItemViewType(position);
+        } else {
+            return mViewTypeMapper.getViewType((ViewTypeItem) getItem(position), position);
+        }
     }
 
     @Override public int getItemCount() {
@@ -61,23 +105,23 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         bindListener(holder.itemView, position, (VH) holder.getCommonHolder());
     }
 
-    public void addAll(Collection<T> list) {
+    @SuppressWarnings("unused") public void addAll(Collection<T> list) {
         mData.addAll(list);
     }
 
-    public void add(T t) {
+    @SuppressWarnings("unused") public void add(T t) {
         mData.add(t);
     }
 
-    public void clear() {
+    @SuppressWarnings("unused") public void clear() {
         mData.clear();
     }
 
-    public void remove(T t) {
+    @SuppressWarnings("unused") public void remove(T t) {
         mData.remove(t);
     }
 
-    public void removeAll(Collection<T> ts) {
+    @SuppressWarnings("unused") public void removeAll(Collection<T> ts) {
         mData.removeAll(ts);
     }
 
@@ -100,7 +144,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         void onBind(int position, T t, VH holder);
     }
 
-    public void setOnBindListener(OnBindListener<T, VH> listener) {
+    @SuppressWarnings("unused") public void setOnBindListener(OnBindListener<T, VH> listener) {
         mOnBindListener = listener;
     }
 
@@ -108,7 +152,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         void onClick(int position, T t);
     }
 
-    public void setOnItemClickListener(OnItemClickListener<T> listener) {
+    @SuppressWarnings("unused") public void setOnItemClickListener(OnItemClickListener<T> listener) {
         mItemClickListener = listener;
         notifyDataSetChanged();
     }

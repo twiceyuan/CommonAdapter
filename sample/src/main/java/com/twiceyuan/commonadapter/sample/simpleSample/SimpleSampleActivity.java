@@ -1,4 +1,4 @@
-package com.twiceyuan.commonadapter.sample;
+package com.twiceyuan.commonadapter.sample.simpleSample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +13,11 @@ import android.widget.Toast;
 import com.twiceyuan.commonadapter.library.adapter.DataManager;
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.CommonListAdapter;
-import com.twiceyuan.commonadapter.sample.model.Person;
+import com.twiceyuan.commonadapter.sample.R;
+import com.twiceyuan.commonadapter.sample.simpleSample.holder.PersonHolder;
+import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 
-public class MainActivity extends AppCompatActivity {
+public class SimpleSampleActivity extends AppCompatActivity {
 
     private static final int MENU_LIST_VIEW     = 1001;
     private static final int MENU_RECYCLER_VIEW = 1002;
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void toast(String toast) {
-        Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SimpleSampleActivity.this, toast, Toast.LENGTH_SHORT).show();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
