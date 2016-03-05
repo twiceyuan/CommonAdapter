@@ -45,7 +45,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mLayoutId = AdapterUtil.parseItemLayoutId(holderClass);
     }
 
-    @SuppressWarnings("unused") public CommonAdapter(Context context, ViewTypeMapper mapper) {
+    @SuppressWarnings("unused") CommonAdapter(Context context, ViewTypeMapper mapper) {
         mViewTypeMapper = mapper;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);

@@ -20,8 +20,8 @@ import com.twiceyuan.commonadapter.sample.viewTypeSample.model.Photo;
 @LayoutId(R.layout.item_photo)
 public class PhotoHolder extends CommonHolder<Photo> {
 
-    @ViewId(R.id.imagePicture) ImageView imagePicture;
-    @ViewId(R.id.textDesc)     TextView  textDesc;
+    @ViewId(R.id.imagePicture) public ImageView imagePicture;
+    @ViewId(R.id.textDesc)     public TextView  textDesc;
 
     public PhotoHolder(View itemView) {
         super(itemView);

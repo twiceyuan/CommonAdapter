@@ -17,8 +17,8 @@ import com.twiceyuan.commonadapter.sample.viewTypeSample.model.Article;
 @LayoutId(R.layout.item_article)
 public class ArticleHolder extends CommonHolder<Article> {
 
-    @ViewId(R.id.textTitle) TextView textTitle;
-    @ViewId(R.id.textContent) TextView textContent;
+    @ViewId(R.id.textTitle) public TextView textTitle;
+    @ViewId(R.id.textContent) public TextView textContent;
 
     public ArticleHolder(View itemView) {
         super(itemView);

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
@@ -34,7 +35,7 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         // 构造器中提供，数据和 Holder 的关系映射，可以设定多种 Holder 在一个 Recycler 中，原理是使用 viewType
-        MultiTypeAdapter adapter = new MultiTypeAdapter(this, new ViewTypeMapper() {
+        final MultiTypeAdapter adapter = new MultiTypeAdapter(this, new ViewTypeMapper() {
             @Override
             public Class<? extends CommonHolder<? extends ViewTypeItem>> getViewType(ViewTypeItem item, int position) {
 
@@ -51,11 +52,20 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        for (int i = 0; i < 10000; i++) {
-            adapter.add(mockArticle());
-            adapter.add(mockArticle());
-            adapter.add(mockPhoto());
-        }
+        new Thread(new Runnable() {
+            @Override public void run() {
+                for (int i = 0; i < 10000; i++) {
+                    adapter.add(mockArticle());
+                    adapter.add(mockArticle());
+                    adapter.add(mockPhoto());
+                }
+                runOnUiThread(new Runnable() {
+                    @Override public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
 
         adapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener<ViewTypeItem>() {
             @Override public void onClick(int position, ViewTypeItem item) {
@@ -65,6 +75,26 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
                 if (item instanceof Photo) {
                     Toast.makeText(ViewTypeSampleActivity.this, "你点击了一张照片，位置" + position, Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        adapter.addHolderListener(Article.class, ArticleHolder.class, new CommonAdapter.OnBindListener<Article, ArticleHolder>() {
+            @Override public void onBind(int position, Article article, ArticleHolder holder) {
+                holder.textTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        Toast.makeText(ViewTypeSampleActivity.this, "你点击了文章的标题", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        adapter.addHolderListener(Photo.class, PhotoHolder.class, new CommonAdapter.OnBindListener<Photo, PhotoHolder>() {
+            @Override public void onBind(int position, Photo photo, PhotoHolder holder) {
+                holder.imagePicture.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        Toast.makeText(ViewTypeSampleActivity.this, "你点击了一张图片", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
