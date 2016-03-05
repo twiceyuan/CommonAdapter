@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">CommonRecyclerAdapter</string>
+    <string name="app_name">CommonAdapter</string>
+    <string name="mock_article_content">
+        这是一个文章的模拟内容，因为是文章的内容，所以不能太短敷衍了事。所以就有现在这么长了。
+        为了长度更长一些，就把这些文字复制了三遍。
+        这是一个文章的模拟内容，因为是文章的内容，所以不能太短敷衍了事。所以就有现在这么长了。
+        为了长度更长一些，就把这些文字复制了三遍。
+        这是一个文章的模拟内容，因为是文章的内容，所以不能太短敷衍了事。所以就有现在这么长了。
+        为了长度更长一些，就把这些文字复制了三遍。
+    </string>
+    <string name="mock_article_title">这是一个模拟标题</string>
+    <string name="mock_image_desc">这是一个图片的介绍</string>
 </resources>

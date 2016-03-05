@@ -1,5 +1,6 @@
-package com.twiceyuan.commonadapter.sample;
+package com.twiceyuan.commonadapter.sample.simpleSample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,15 +11,19 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.twiceyuan.commonadapter.library.adapter.DataManager;
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.CommonListAdapter;
-import com.twiceyuan.commonadapter.sample.model.Person;
+import com.twiceyuan.commonadapter.library.adapter.DataManager;
+import com.twiceyuan.commonadapter.sample.R;
+import com.twiceyuan.commonadapter.sample.simpleSample.holder.PersonHolder;
+import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
+import com.twiceyuan.commonadapter.sample.viewTypeSample.ViewTypeSampleActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class SimpleSampleActivity extends AppCompatActivity {
 
-    private static final int MENU_LIST_VIEW     = 1001;
-    private static final int MENU_RECYCLER_VIEW = 1002;
+    private static final int MENU_LIST_VIEW        = 1001;
+    private static final int MENU_RECYCLER_VIEW    = 1002;
+    private static final int MENU_VIEW_TYPE_SAMPLE = 1003;
 
     private RecyclerView mRecyclerView;
     private ListView     mListView;
@@ -26,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_simple_sample);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mListView = (ListView) findViewById(R.id.listView);
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         // build adapter
         CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
         mListView.setAdapter(listAdapter);
+        mListView.setDivider(null);
 
         // mock data
         mockData(listAdapter);
@@ -102,14 +108,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void toast(String toast) {
-        Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SimpleSampleActivity.this, toast, Toast.LENGTH_SHORT).show();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem menuItem1 = menu.add(Menu.NONE, MENU_LIST_VIEW, 0, "ListView Adapter");
         MenuItem menuItem2 = menu.add(Menu.NONE, MENU_RECYCLER_VIEW, 0, "RecyclerView Adapter");
+        MenuItem menuItem3 = menu.add(Menu.NONE, MENU_VIEW_TYPE_SAMPLE, 0, "ViewType Sample");
         menuItem1.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menuItem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menuItem3.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -123,17 +131,17 @@ public class MainActivity extends AppCompatActivity {
             showRecyclerViewSample();
             return true;
         }
+
+        if (item.getItemId() == MENU_VIEW_TYPE_SAMPLE) {
+            startActivity(new Intent(this, ViewTypeSampleActivity.class));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     void mockData(DataManager<Person> personAdapter) {
-        personAdapter.add(new Person("twiceYuan0", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan1", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan2", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan3", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan4", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan5", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan6", "twiceyuan@gmail.com"));
-        personAdapter.add(new Person("twiceYuan7", "twiceyuan@gmail.com"));
+        for (int i = 0; i < 10000; i++) {
+            personAdapter.add(new Person("twiceYuan" + i, "twiceyuan@gmail.com"));
+        }
     }
 }

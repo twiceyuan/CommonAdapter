@@ -1,4 +1,4 @@
-package com.twiceyuan.commonadapter.sample;
+package com.twiceyuan.commonadapter.sample.simpleSample.holder;
 
 import android.view.View;
 import android.widget.TextView;
@@ -6,7 +6,8 @@ import android.widget.TextView;
 import com.twiceyuan.commonadapter.library.LayoutId;
 import com.twiceyuan.commonadapter.library.ViewId;
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
-import com.twiceyuan.commonadapter.sample.model.Person;
+import com.twiceyuan.commonadapter.sample.R;
+import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 
 /**
  * Created by twiceYuan on 1/20/16.
@@ -16,8 +17,8 @@ import com.twiceyuan.commonadapter.sample.model.Person;
 @LayoutId(R.layout.item_person)
 public class PersonHolder extends CommonHolder<Person> {
 
-    @ViewId(R.id.name) TextView name;
-    @ViewId(R.id.email) TextView email;
+    @ViewId(R.id.name) public  TextView name;
+    @ViewId(R.id.email) public TextView email;
 
     public PersonHolder(View itemView) {
         super(itemView);
