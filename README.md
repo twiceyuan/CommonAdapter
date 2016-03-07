@@ -6,12 +6,13 @@
 <a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3ACommonAdapter%3A0.3"><img src="https://img.shields.io/badge/Size-27 KB-e91e63.svg"></img></a>
 <a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3ACommonAdapter%3A0.3"><img src="https://img.shields.io/badge/Methods count-core: 105 | deps: 16456-e91e63.svg"></img></a>
 
+[中文介绍](README.zh.md)
 
-a common ListView / RecyclerView adapter
+* [x] A common ListView / RecyclerView adapter.
+* [x] Support RecyclerView multiple view type. This is a [demo](https://github.com/twiceyuan?tab=repositories)
 
 ![Intro](art/banner.png)
 
-[中文](README.zh.md)
 
 # Setup
 
