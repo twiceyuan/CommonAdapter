@@ -9,7 +9,7 @@
 [中文介绍](README.zh.md)
 
 * [x] A common ListView / RecyclerView adapter.
-* [x] Support RecyclerView multiple view type. This is a [demo](https://github.com/twiceyuan?tab=repositories)
+* [x] Support RecyclerView multiple view type. This is a [demo](https://github.com/twiceyuan/RecyclerViewType)
 
 ![Intro](art/banner.png)
 
