@@ -110,7 +110,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         bindListener(holder.itemView, position, (VH) holder.getCommonHolder());
     }
 
-    @SuppressWarnings("unused") public void addAll(Collection<T> list) {
+    @SuppressWarnings("unused") public void addAll(Collection<? extends T> list) {
         mData.addAll(list);
     }
 
@@ -126,7 +126,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mData.remove(t);
     }
 
-    @SuppressWarnings("unused") public void removeAll(Collection<T> ts) {
+    @SuppressWarnings("unused") public void removeAll(Collection<? extends T> ts) {
         mData.removeAll(ts);
     }
 

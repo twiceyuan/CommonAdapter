@@ -7,10 +7,11 @@ import java.util.Collection;
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
  */
+@SuppressWarnings("unused")
 public interface DataManager<T> {
     void clear();
     void add(T t);
-    void addAll(Collection<T> list);
+    void addAll(Collection<? extends T> list);
     void remove(T t);
-    void removeAll(Collection<T> ts);
+    void removeAll(Collection<? extends T> ts);
 }

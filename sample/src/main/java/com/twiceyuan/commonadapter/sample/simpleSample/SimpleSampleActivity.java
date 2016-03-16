@@ -78,7 +78,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
         mockData(listAdapter);
 
         listAdapter.setOnBindListener(new CommonListAdapter.OnBindListener<Person, PersonHolder>() {
-            @Override public void onBind(int position, final Person person, PersonHolder holder) {
+            @Override public void onBind(View parentView, int position, final Person person, PersonHolder holder) {
                 holder.name.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
                         toast(person.name);

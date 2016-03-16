@@ -63,7 +63,7 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         return convertView;
     }
 
-    public void addAll(Collection<T> list) {
+    public void addAll(Collection<? extends T> list) {
         mData.addAll(list);
     }
 
@@ -79,24 +79,25 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         mData.remove(t);
     }
 
-    public void removeAll(Collection<T> ts) {
+    public void removeAll(Collection<? extends T> ts) {
         mData.removeAll(ts);
     }
 
     private void bindListener(View parentView, final int position, final VH holder) {
         if (mOnBindListener != null) {
-            mOnBindListener.onBind(position, getItem(position), holder);
+            mOnBindListener.onBind(parentView, position, getItem(position), holder);
         }
     }
 
     public interface OnBindListener<T, VH> {
-        void onBind(int position, T t, VH holder);
+        void onBind(View parentView, int position, T t, VH holder);
     }
 
     public void setOnBindListener(OnBindListener<T, VH> listener) {
         mOnBindListener = listener;
     }
 
+    @SuppressWarnings("unused")
     public interface OnItemClickListener<T> {
         void onClick(int position, T t);
     }
