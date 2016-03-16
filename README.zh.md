@@ -5,7 +5,8 @@
 [![Apache 2.0](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 <a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3ACommonAdapter%3A0.3"><img src="https://img.shields.io/badge/Size-27 KB-e91e63.svg"></img></a>
 <a href="http://www.methodscount.com/?lib=com.github.twiceyuan%3ACommonAdapter%3A0.3"><img src="https://img.shields.io/badge/Methods count-core: 105 | deps: 16456-e91e63.svg"></img></a>
-一个通用的 ListView / RecyclerView 适配器
+
+一个 ListView / RecyclerView 通用的适配器
 
 [English](README.md)
 
