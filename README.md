@@ -18,15 +18,15 @@
 
 ```groovy
 allprojects {
-	repositories {
-		// ...
-		maven { url "https://jitpack.io" }
-	}
+  repositories {
+    // ...
+    maven { url "https://jitpack.io" }
+  }
 }
 ```
 ```groovy
 dependencies {
-  compile 'com.github.twiceyuan:CommonAdapter:0.3'
+  compile 'com.github.twiceyuan:CommonAdapter:0.4.2'
 }
 ```
 
