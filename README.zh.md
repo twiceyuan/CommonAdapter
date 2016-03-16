@@ -11,7 +11,7 @@
 [English](README.md)
 
 * [x] 可以当做一个 ListView / RecyclerView 通用的 adapter.
-* [x] 支持（而且更加方便） RecyclerView 的多 view type 布局. 这里有一个 [demo] 来演示如何使用本项目实现多 ViewType 的 RecyclerView (https://github.com/twiceyuan/RecyclerViewType)
+* [x] 支持（而且更加方便） RecyclerView 的多 view type 布局. 这里有一个 [demo](https://github.com/twiceyuan/RecyclerViewType) 来演示如何使用本项目实现多 ViewType 的 RecyclerView 
 
 ![介绍](art/banner.png)
 
