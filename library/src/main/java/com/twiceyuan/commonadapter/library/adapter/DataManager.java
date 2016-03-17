@@ -1,6 +1,7 @@
 package com.twiceyuan.commonadapter.library.adapter;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by twiceYuan on 1/20/16.
@@ -14,4 +15,5 @@ public interface DataManager<T> {
     void addAll(Collection<? extends T> list);
     void remove(T t);
     void removeAll(Collection<? extends T> ts);
+    List<T> getData();
 }

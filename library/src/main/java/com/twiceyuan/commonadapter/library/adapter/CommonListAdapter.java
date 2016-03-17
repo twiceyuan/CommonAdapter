@@ -83,6 +83,10 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         mData.removeAll(ts);
     }
 
+    @Override public List<T> getData() {
+        return mData;
+    }
+
     private void bindListener(View parentView, final int position, final VH holder) {
         if (mOnBindListener != null) {
             mOnBindListener.onBind(parentView, position, getItem(position), holder);

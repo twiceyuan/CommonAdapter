@@ -8,7 +8,10 @@ import com.twiceyuan.commonadapter.library.holder.CommonHolder;
  * Created by twiceYuan on 3/4/16.
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
+ *
+ * Move to {@link CommonAdapter}
  */
+@Deprecated
 public class CommonRecyclerAdapter<T> extends CommonAdapter<T, CommonHolder<T>> {
 
     public CommonRecyclerAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {

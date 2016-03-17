@@ -130,6 +130,10 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mData.removeAll(ts);
     }
 
+    @Override public List<T> getData() {
+        return mData;
+    }
+
     private void bindListener(View parentView, final int position, final VH holder) {
 
         if (mItemClickListener != null) {
