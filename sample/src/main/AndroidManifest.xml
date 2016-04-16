@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".viewTypeSample.ViewTypeSampleActivity"/>
+        <activity android:name=".wrapperSample.WrapperSampleActivity"/>
     </application>
 
 </manifest>
