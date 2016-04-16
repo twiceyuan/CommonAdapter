@@ -42,8 +42,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
          * RecyclerView Adapter Sample
          */
         // build adapter
-        CommonAdapter<Person, PersonHolder> recyclerAdapter =
-                new CommonAdapter<>(this, PersonHolder.class);
+        CommonAdapter<Person, PersonHolder> recyclerAdapter = new CommonAdapter<>(this, PersonHolder.class);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // set adapter

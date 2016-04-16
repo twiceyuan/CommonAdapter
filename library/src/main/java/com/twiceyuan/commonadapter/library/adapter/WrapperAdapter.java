@@ -11,7 +11,6 @@ import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.holder.CommonRecyclerHolder;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,15 +41,16 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         mChildAdapter = new CommonAdapter<>(context, holderClass);
     }
 
-    public WrapperAdapter(CommonAdapter<T, Holder> childAdapter) {
+    /**
+     * 根据一个 子适配器来构造 WrapperAdapter. 需要传入 RecyclerView 的原因是需要获取其 DataSetObserver,
+     * 让子适配器也能通知数据更新.
+     *
+     * @param childAdapter childAdapter
+     * @param recyclerView recyclerView
+     */
+    public WrapperAdapter(CommonAdapter<T, Holder> childAdapter, RecyclerView recyclerView) {
         mChildAdapter = childAdapter;
-        childAdapter.notifyDataSetChanged();
-        List<RecyclerView.AdapterDataObserver> observers = getObserverFromAdapter(childAdapter);
-        if (observers != null) {
-            for (RecyclerView.AdapterDataObserver observer : observers) {
-                registerAdapterDataObserver(observer);
-            }
-        }
+        childAdapter.registerAdapterDataObserver(getObserverFromRecyclerView(recyclerView));
     }
 
     @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -74,15 +74,23 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     }
 
     public void setHeaderView(View headerView) {
+        if (headerView.getParent() != null) {
+            ViewGroup viewGroup = (ViewGroup) headerView.getParent();
+            viewGroup.removeView(headerView);
+        }
         mHeaderView = headerView;
         mHeaderView.setLayoutParams(mLayoutParams);
-        notifyItemChanged(0);
+        notifyDataSetChanged();
     }
 
     public void setFooterView(View footerView) {
+        if (footerView.getParent() != null) {
+            ViewGroup viewGroup = (ViewGroup) footerView.getParent();
+            viewGroup.removeView(footerView);
+        }
         mFooterView = footerView;
         mFooterView.setLayoutParams(mLayoutParams);
-        notifyItemChanged(getItemCount() - 1);
+        notifyDataSetChanged();
     }
 
     @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -150,16 +158,11 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         mChildAdapter.setOnItemClickListener(listener);
     }
 
-    public List<RecyclerView.AdapterDataObserver> getObserverFromAdapter(RecyclerView.Adapter adapter) {
-        Class<RecyclerView.Adapter> adapterClass = RecyclerView.Adapter.class;
+    public RecyclerView.AdapterDataObserver getObserverFromRecyclerView(RecyclerView recyclerView) {
         try {
-            Field observableFiled = adapterClass.getDeclaredField("mObservable");
-            observableFiled.setAccessible(true);
-            Object observable = observableFiled.get(adapter);
-            Field observersField = observable.getClass().getDeclaredField("mObservers");
-            observersField.setAccessible(true);
-            //noinspection unchecked
-            return (ArrayList<RecyclerView.AdapterDataObserver>) observableFiled.get(observable);
+            Field observerField = recyclerView.getClass().getDeclaredField("mObserver");
+            observerField.setAccessible(true);
+            return (RecyclerView.AdapterDataObserver) observerField.get(recyclerView);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
