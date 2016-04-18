@@ -126,6 +126,10 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         }
     }
 
+    public T getItem(int position) {
+        return mChildAdapter.getItem(position);
+    }
+
     @SuppressWarnings("unused") public void addAll(Collection<? extends T> list) {
         mChildAdapter.addAll(list);
     }
@@ -144,6 +148,10 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
 
     @SuppressWarnings("unused") public void removeAll(Collection<? extends T> ts) {
         mChildAdapter.removeAll(ts);
+    }
+
+    public CommonAdapter<T, Holder> getChildAdapter() {
+        return mChildAdapter;
     }
 
     public List<T> getData() {
