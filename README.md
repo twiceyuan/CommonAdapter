@@ -25,8 +25,8 @@ allprojects {
 }
 ```
 ```groovy
-dependencies {
-  compile 'com.github.twiceyuan:CommonAdapter:[version]'
+compile("com.github.twiceyuan:CommonAdapter:$COMMON_ADAPTER_VERSION") {
+  exclude group: 'com.android.support', module: 'recyclerview-v7'
 }
 ```
 
