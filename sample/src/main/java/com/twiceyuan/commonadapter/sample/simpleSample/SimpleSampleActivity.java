@@ -18,12 +18,14 @@ import com.twiceyuan.commonadapter.sample.R;
 import com.twiceyuan.commonadapter.sample.simpleSample.holder.PersonHolder;
 import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 import com.twiceyuan.commonadapter.sample.viewTypeSample.ViewTypeSampleActivity;
+import com.twiceyuan.commonadapter.sample.wrapperSample.WrapperSampleActivity;
 
 public class SimpleSampleActivity extends AppCompatActivity {
 
     private static final int MENU_LIST_VIEW        = 1001;
     private static final int MENU_RECYCLER_VIEW    = 1002;
     private static final int MENU_VIEW_TYPE_SAMPLE = 1003;
+    private static final int MENU_WRAPPER_ADAPTER  = 1004;
 
     private RecyclerView mRecyclerView;
     private ListView     mListView;
@@ -40,8 +42,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
          * RecyclerView Adapter Sample
          */
         // build adapter
-        CommonAdapter<Person, PersonHolder> recyclerAdapter =
-                new CommonAdapter<>(this, PersonHolder.class);
+        CommonAdapter<Person, PersonHolder> recyclerAdapter = new CommonAdapter<>(this, PersonHolder.class);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // set adapter
@@ -112,12 +113,17 @@ public class SimpleSampleActivity extends AppCompatActivity {
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuItem menuItem1 = menu.add(Menu.NONE, MENU_LIST_VIEW, 0, "ListView Adapter");
         MenuItem menuItem2 = menu.add(Menu.NONE, MENU_RECYCLER_VIEW, 0, "RecyclerView Adapter");
         MenuItem menuItem3 = menu.add(Menu.NONE, MENU_VIEW_TYPE_SAMPLE, 0, "ViewType Sample");
+        MenuItem menuItem4 = menu.add(Menu.NONE, MENU_WRAPPER_ADAPTER, 0, "Header & Footer");
+
         menuItem1.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menuItem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menuItem3.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menuItem4.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -134,6 +140,11 @@ public class SimpleSampleActivity extends AppCompatActivity {
 
         if (item.getItemId() == MENU_VIEW_TYPE_SAMPLE) {
             startActivity(new Intent(this, ViewTypeSampleActivity.class));
+            return true;
+        }
+
+        if (item.getItemId() == MENU_WRAPPER_ADAPTER) {
+            startActivity(new Intent(this, WrapperSampleActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

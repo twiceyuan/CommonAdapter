@@ -1,6 +1,5 @@
 package com.twiceyuan.commonadapter.sample.viewTypeSample.holder;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.twiceyuan.commonadapter.library.LayoutId;
@@ -19,10 +18,6 @@ public class ArticleHolder extends CommonHolder<Article> {
 
     @ViewId(R.id.textTitle) public TextView textTitle;
     @ViewId(R.id.textContent) public TextView textContent;
-
-    public ArticleHolder(View itemView) {
-        super(itemView);
-    }
 
     @Override public void bindData(Article article) {
         textTitle.setText(article.title);

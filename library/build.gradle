@@ -3,13 +3,15 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 23
+    //noinspection GradleDependency
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 8
+        //noinspection OldTargetApi
         targetSdkVersion 23
         versionCode 4
-        versionName "0.4.4"
+        versionName "0.5.2"
     }
     buildTypes {
         release {
@@ -22,14 +24,20 @@ android {
 }
 
 dependencies {
+
+    final SUPPORT_VERSION = "23.3.0"
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+    //noinspection GradleDependency
+    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    //noinspection GradleDependency
+    compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
 }
 
 // build a jar with source files
 task sourcesJar(type: Jar) {
+    //noinspection GroovyAssignabilityCheck
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }

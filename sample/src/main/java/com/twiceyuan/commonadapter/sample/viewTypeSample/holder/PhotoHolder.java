@@ -2,7 +2,6 @@ package com.twiceyuan.commonadapter.sample.viewTypeSample.holder;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,10 +21,6 @@ public class PhotoHolder extends CommonHolder<Photo> {
 
     @ViewId(R.id.imagePicture) public ImageView imagePicture;
     @ViewId(R.id.textDesc)     public TextView  textDesc;
-
-    public PhotoHolder(View itemView) {
-        super(itemView);
-    }
 
     @Override public void bindData(Photo photo) {
         Context context = getItemView().getContext();
