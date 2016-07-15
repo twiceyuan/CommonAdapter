@@ -1,6 +1,5 @@
 package com.twiceyuan.commonadapter.sample.simpleSample.holder;
 
-import android.view.View;
 import android.widget.TextView;
 
 import com.twiceyuan.commonadapter.library.LayoutId;
@@ -19,10 +18,6 @@ public class PersonHolder extends CommonHolder<Person> {
 
     @ViewId(R.id.name) public  TextView name;
     @ViewId(R.id.email) public TextView email;
-
-    public PersonHolder(View itemView) {
-        super(itemView);
-    }
 
     @Override public void bindData(Person person) {
         name.setText(person.name);

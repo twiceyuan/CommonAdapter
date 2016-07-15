@@ -11,11 +11,11 @@ public abstract class CommonHolder<T> {
 
     private View mItemView;
 
-    public CommonHolder(View itemView) {
-        mItemView = itemView;
-    }
-
     public abstract void bindData(T t);
+
+    public void setItemView(View view) {
+        mItemView = view;
+    }
 
     public View getItemView() {
         return mItemView;
