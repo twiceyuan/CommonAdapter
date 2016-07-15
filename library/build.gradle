@@ -2,12 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 8
-        targetSdkVersion 24
+        //noinspection OldTargetApi
+        targetSdkVersion 23
         versionCode 4
         versionName "0.5.2"
     }
@@ -23,11 +24,13 @@ android {
 
 dependencies {
 
-    final SUPPORT_VERSION = "24.0.0"
+    final SUPPORT_VERSION = "23.3.0"
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    //noinspection GradleDependency
     compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    //noinspection GradleDependency
     compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
 }
 
