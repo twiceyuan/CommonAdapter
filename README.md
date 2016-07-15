@@ -26,7 +26,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-  compile 'com.github.twiceyuan:CommonAdapter:0.4.4'
+  compile 'com.github.twiceyuan:CommonAdapter:0.5.2'
 }
 ```
 
@@ -42,10 +42,6 @@ dependencies {
       // bind View id
       @ViewId(R.id.name) TextView name;
       @ViewId(R.id.email) TextView email;
-  
-      public PersonHolder(View itemView) {
-          super(itemView);
-      }
   
       // bind data
       @Override public void bindData(Person person) {
