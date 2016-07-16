@@ -42,11 +42,7 @@ compile("com.github.twiceyuan:CommonAdapter:$COMMON_ADAPTER_VERSION") {
       // bind View id
       @ViewId(R.id.name) TextView name;
       @ViewId(R.id.email) TextView email;
-  
-      public PersonHolder(View itemView) {
-          super(itemView);
-      }
-  
+
       // bind data
       @Override public void bindData(Person person) {
           name.setText(person.name);
