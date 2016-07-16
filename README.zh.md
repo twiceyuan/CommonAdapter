@@ -26,8 +26,8 @@ allprojects {
 }
 ```
 ```groovy
-dependencies {
-  compile 'com.github.twiceyuan:CommonAdapter:0.4.2'
+compile("com.github.twiceyuan:CommonAdapter:$COMMON_ADAPTER_VERSION") {
+  exclude group: 'com.android.support', module: 'recyclerview-v7'
 }
 ```
 
@@ -43,10 +43,6 @@ dependencies {
       // 绑定 View 资源
       @ViewId(R.id.name) TextView name;
       @ViewId(R.id.email) TextView email;
-  
-      public PersonHolder(View itemView) {
-          super(itemView);
-      }
   
       // 绑定数据
       @Override public void bindData(Person person) {
