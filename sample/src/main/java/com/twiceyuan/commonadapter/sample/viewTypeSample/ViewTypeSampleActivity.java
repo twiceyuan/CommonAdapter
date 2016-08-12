@@ -35,20 +35,7 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
 
         // 构造器中提供，数据和 Holder 的关系映射，可以设定多种 Holder 在一个 Recycler 中，原理是使用 viewType
         final MultiTypeAdapter adapter;
-//        adapter = new MultiTypeAdapter(this, new ViewTypeMapper() {
-//            @Override
-//            public Class<? extends CommonHolder<? extends ViewTypeItem>> getViewType(ViewTypeItem item, int position) {
-//
-//                // 可以根据实体数据的类型，或者位置来设定使用哪种 Holder，但不需要定义 viewType 的常量
-//                if (item instanceof Photo) {
-//                    return PhotoHolder.class;
-//                }
-//                if (item instanceof Article) {
-//                    return ArticleHolder.class;
-//                }
-//                return null;
-//            }
-//        });
+
         adapter = new MultiTypeAdapter(this);
         adapter.registerViewType(Photo.class, PhotoHolder.class);
         adapter.registerViewType(Article.class, ArticleHolder.class);

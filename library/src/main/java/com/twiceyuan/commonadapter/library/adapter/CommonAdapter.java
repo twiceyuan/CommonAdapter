@@ -99,7 +99,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         }
 
         // 如果都没有，就抛出异常
-        throw new RuntimeException("CommonHolder or HolderMapper must be configure.");
+        throw new RuntimeException("CommonHolder or HolderMapper(or register view type) must be configure at least one.");
     }
 
     @Override
@@ -108,21 +108,37 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
             // 使用 Holder 的 class 对象的 hashCode 作为 viewType，简化 ViewType 使用的逻辑
             Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass =
                     mViewTypeMapper.getViewType((ViewTypeItem) getItem(position), position);
-            mViewTypeHolders.put(holderClass.hashCode(), holderClass);
-            return holderClass.hashCode();
+            int viewType = getHolderViewType(holderClass);
+            mViewTypeHolders.put(viewType, holderClass);
+            return viewType;
         }
         if (mHolderMap != null) {
             T item = getItem(position);
             if (item instanceof ViewTypeItem) {
                 ViewTypeItem typeItem = (ViewTypeItem) item;
                 Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass = mHolderMap.get(typeItem.getClass());
-                mViewTypeHolders.put(holderClass.hashCode(), holderClass);
-                return holderClass.hashCode();
+                if (holderClass != null) {
+                    int viewType = getHolderViewType(holderClass);
+                    mViewTypeHolders.put(viewType, holderClass);
+                    return viewType;
+                } else {
+                    throw new ViewTypeNotFountException(item);
+                }
             } else {
-                throw new IllegalStateException(String.format("没有注册 item %s 的 Holder 类型", item.getClass().getCanonicalName()));
+                throw new ViewTypeNotFountException(item);
             }
         }
         return super.getItemViewType(position);
+    }
+
+    public static class ViewTypeNotFountException extends IllegalStateException {
+        public ViewTypeNotFountException(Object item) {
+            super(String.format("没有注册 item %s 的 Holder 类型", item.getClass().getCanonicalName()));
+        }
+    }
+
+    private int getHolderViewType(Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass) {
+        return holderClass.hashCode();
     }
 
     <DataType extends ViewTypeItem> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
