@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by twiceYuan on 3/4/16.
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
- * <p/>
+ * <p>
  * 多种 View Type 的 CommonAdapter 的直接继承。避免在使用的时候用错泛型
  */
 public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<ViewTypeItem>> {
@@ -24,6 +24,15 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
         mOnBindListeners = new HashMap<>();
     }
 
+    public MultiTypeAdapter(Context context) {
+        super(context);
+        mOnBindListeners = new HashMap<>();
+    }
+
+    public <DataType extends ViewTypeItem> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
+        super.registerViewType(dataClass, holderClass);
+    }
+
     /**
      * 可以让用户指定实体或者 Holder 的类型来回调 Holder 完成事件绑定
      *
@@ -33,7 +42,8 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
      * @param <T>           实体类型
      * @param <VH>          holder 类型
      */
-    @SuppressWarnings("unused") public <T extends ViewTypeItem, VH extends CommonHolder>
+    @SuppressWarnings("unused")
+    public <T extends ViewTypeItem, VH extends CommonHolder>
     void addHolderListener(final Class<T> viewTypeClass,
                            final Class<VH> holderClass,
                            final OnBindListener<T, VH> listener) {
@@ -53,7 +63,8 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
      */
     private void refreshListener() {
         super.setOnBindListener(new OnBindListener<ViewTypeItem, CommonHolder<ViewTypeItem>>() {
-            @Override public void onBind(int position, ViewTypeItem item, CommonHolder<ViewTypeItem> holder) {
+            @Override
+            public void onBind(int position, ViewTypeItem item, CommonHolder<ViewTypeItem> holder) {
                 Set<OnBindListener> listeners = mOnBindListeners.keySet();
                 for (OnBindListener listener : listeners) {
                     Class argClass = mOnBindListeners.get(listener);
