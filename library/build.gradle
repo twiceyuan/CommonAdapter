@@ -1,14 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    //noinspection GradleDependency
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 8
-        //noinspection OldTargetApi
-        targetSdkVersion 23
+        minSdkVersion 9
+        targetSdkVersion 25
         versionCode 4
         versionName "0.5.3"
     }
@@ -23,15 +21,10 @@ android {
 }
 
 dependencies {
-
-    final SUPPORT_VERSION = "23.3.0"
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    //noinspection GradleDependency
-    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
-    //noinspection GradleDependency
-    compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
+    compile "com.android.support:appcompat-v7:25.0.0"
+    compile "com.android.support:recyclerview-v7:25.0.0"
 }
 
 // build a jar with source files
