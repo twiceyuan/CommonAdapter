@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".viewTypeSample.ViewTypeSampleActivity"/>
         <activity android:name=".wrapperSample.WrapperSampleActivity"/>
+        <activity android:name=".complexHolderSample.ComplexHolderActivity"/>
     </application>
 
 </manifest>

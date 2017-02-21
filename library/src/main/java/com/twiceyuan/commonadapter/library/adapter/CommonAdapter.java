@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.holder.CommonRecyclerHolder;
+import com.twiceyuan.commonadapter.library.holder.ComplexHolder;
 import com.twiceyuan.commonadapter.library.util.AdapterUtil;
 import com.twiceyuan.commonadapter.library.util.FieldAnnotationParser;
 
@@ -152,9 +153,15 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
 
     @Override
     public void onBindViewHolder(CommonRecyclerHolder<T> holder, int position) {
-        holder.getCommonHolder().bindData(mData.get(position));
+        CommonHolder<T> commonHolder = holder.getCommonHolder();
+        if (commonHolder instanceof ComplexHolder) {
+            //noinspection unchecked
+            ((ComplexHolder) commonHolder).bindData(mData.get(position), position, this);
+        } else {
+            commonHolder.bindData(mData.get(position));
+        }
         //noinspection unchecked
-        bindListener(holder.itemView, position, (VH) holder.getCommonHolder());
+        bindListener(holder.itemView, position, (VH) commonHolder);
     }
 
     @SuppressWarnings("unused")

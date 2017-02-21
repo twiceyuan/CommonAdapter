@@ -15,6 +15,7 @@ import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.CommonListAdapter;
 import com.twiceyuan.commonadapter.library.adapter.DataManager;
 import com.twiceyuan.commonadapter.sample.R;
+import com.twiceyuan.commonadapter.sample.complexHolderSample.ComplexHolderActivity;
 import com.twiceyuan.commonadapter.sample.simpleSample.holder.PersonHolder;
 import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 import com.twiceyuan.commonadapter.sample.viewTypeSample.ViewTypeSampleActivity;
@@ -26,6 +27,7 @@ public class SimpleSampleActivity extends AppCompatActivity {
     private static final int MENU_RECYCLER_VIEW    = 1002;
     private static final int MENU_VIEW_TYPE_SAMPLE = 1003;
     private static final int MENU_WRAPPER_ADAPTER  = 1004;
+    private static final int MENU_COMPLEX_ADAPTER  = 1005;
 
     private RecyclerView mRecyclerView;
     private ListView     mListView;
@@ -53,14 +55,17 @@ public class SimpleSampleActivity extends AppCompatActivity {
 
         // set elements click listener
         recyclerAdapter.setOnBindListener(new CommonAdapter.OnBindListener<Person, PersonHolder>() {
-            @Override public void onBind(int position, final Person person, PersonHolder holder) {
+            @Override
+            public void onBind(int position, final Person person, PersonHolder holder) {
                 holder.name.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                         toast(person.name);
                     }
                 });
                 holder.email.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                         toast(person.email);
                     }
                 });
@@ -79,14 +84,17 @@ public class SimpleSampleActivity extends AppCompatActivity {
         mockData(listAdapter);
 
         listAdapter.setOnBindListener(new CommonListAdapter.OnBindListener<Person, PersonHolder>() {
-            @Override public void onBind(View parentView, int position, final Person person, PersonHolder holder) {
+            @Override
+            public void onBind(View parentView, int position, final Person person, PersonHolder holder) {
                 holder.name.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                         toast(person.name);
                     }
                 });
                 holder.email.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
                         toast(person.email);
                     }
                 });
@@ -112,22 +120,26 @@ public class SimpleSampleActivity extends AppCompatActivity {
         Toast.makeText(SimpleSampleActivity.this, toast, Toast.LENGTH_SHORT).show();
     }
 
-    @Override public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuItem menuItem1 = menu.add(Menu.NONE, MENU_LIST_VIEW, 0, "ListView Adapter");
         MenuItem menuItem2 = menu.add(Menu.NONE, MENU_RECYCLER_VIEW, 0, "RecyclerView Adapter");
         MenuItem menuItem3 = menu.add(Menu.NONE, MENU_VIEW_TYPE_SAMPLE, 0, "ViewType Sample");
         MenuItem menuItem4 = menu.add(Menu.NONE, MENU_WRAPPER_ADAPTER, 0, "Header & Footer");
+        MenuItem menuItem5 = menu.add(Menu.NONE, MENU_COMPLEX_ADAPTER, 0, "Complex Holder");
 
         menuItem1.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menuItem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menuItem3.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menuItem4.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menuItem5.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == MENU_LIST_VIEW) {
             showListViewSample();
             return true;
@@ -145,6 +157,11 @@ public class SimpleSampleActivity extends AppCompatActivity {
 
         if (item.getItemId() == MENU_WRAPPER_ADAPTER) {
             startActivity(new Intent(this, WrapperSampleActivity.class));
+            return true;
+        }
+
+        if (item.getItemId() == MENU_COMPLEX_ADAPTER) {
+            startActivity(new Intent(this, ComplexHolderActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
