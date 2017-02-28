@@ -1,8 +1,10 @@
 package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +73,40 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
             return FOOTER_HOLDER;
         }
         return super.getItemViewType(position);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager != null && layoutManager instanceof GridLayoutManager) {
+            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return getItemViewType(position) == HEADER_HOLDER || getItemViewType(position) == FOOTER_HOLDER
+                            ? gridLayoutManager.getSpanCount() : 1;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        View itemView = holder.itemView;
+        ViewGroup.LayoutParams lp = itemView.getLayoutParams();
+        if (lp == null) {
+            return;
+        }
+
+        if (holder instanceof HeaderHolder || holder instanceof FooterHolder) {
+
+            if (lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+                StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+                p.setFullSpan(true);
+            }
+        }
     }
 
     public void setHeaderView(View headerView) {
