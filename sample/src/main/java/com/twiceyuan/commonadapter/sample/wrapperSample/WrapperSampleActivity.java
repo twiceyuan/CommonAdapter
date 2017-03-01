@@ -3,8 +3,12 @@ package com.twiceyuan.commonadapter.sample.wrapperSample;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -25,6 +29,9 @@ import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
  * 添加 Header 和 Footer 的 RecyclerView 演示
  */
 public class WrapperSampleActivity extends AppCompatActivity {
+    private static final int MENU_LinearlayoutManager        = 1001;
+    private static final int MENU_GridLayoutManager          = 1002;
+    private static final int MENU_StaggeredGridLayoutManager = 1003;
 
     RecyclerView mRecyclerView;
 
@@ -36,7 +43,7 @@ public class WrapperSampleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wrapper_adapter);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         final String labelHeader = "I'm a Header!";
         final String labelFooter = "I'm a Footer!";
@@ -75,5 +82,39 @@ public class WrapperSampleActivity extends AppCompatActivity {
             }
         });
         return view;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuItem menuItem1 = menu.add(Menu.NONE, MENU_LinearlayoutManager, 0, "LinearlayoutManager");
+        MenuItem menuItem2 = menu.add(Menu.NONE, MENU_GridLayoutManager, 0, "GridLayoutManager");
+        MenuItem menuItem3 = menu.add(Menu.NONE, MENU_StaggeredGridLayoutManager, 0, "StaggeredGridLayoutManager");
+
+        menuItem1.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menuItem2.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menuItem3.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == MENU_LinearlayoutManager) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            return true;
+        }
+
+        if (item.getItemId() == MENU_GridLayoutManager) {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+            return true;
+        }
+
+        if (item.getItemId() == MENU_StaggeredGridLayoutManager) {
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
