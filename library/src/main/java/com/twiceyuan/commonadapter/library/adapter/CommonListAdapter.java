@@ -13,6 +13,8 @@ import com.twiceyuan.commonadapter.library.util.FieldAnnotationParser;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by twiceYuan on 1/20/16.
@@ -29,6 +31,8 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
     private Integer                          mLayoutId;
     private OnBindListener<T, VH>            mOnBindListener;
 
+    private Map<String, Object> mSingletonCache = new ConcurrentHashMap<>();
+
     public CommonListAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
         mHolderClass = holderClass;
         mData = new ArrayList<>();
@@ -36,22 +40,27 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         mLayoutId = AdapterUtil.parseItemLayoutId(mHolderClass);
     }
 
-    @Override public int getCount() {
+    @Override
+    public int getCount() {
         return mData.size();
     }
 
-    @Override public T getItem(int position) {
+    @Override
+    public T getItem(int position) {
         return mData.get(position);
     }
 
-    @Override public long getItemId(int position) {
+    @Override
+    public long getItemId(int position) {
         return mData.get(position).hashCode();
     }
 
-    @Override public View getView(int position, View convertView, ViewGroup parent) {
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutId, parent, false);
             CommonHolder holder = AdapterUtil.createViewHolder(convertView, mHolderClass);
+            AdapterUtil.setupAdapterSingleton(mSingletonCache, holder);
             FieldAnnotationParser.setViewFields(holder, convertView);
             convertView.setTag(holder);
         }
@@ -83,7 +92,8 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         mData.removeAll(ts);
     }
 
-    @Override public List<T> getData() {
+    @Override
+    public List<T> getData() {
         return mData;
     }
 
@@ -93,12 +103,12 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         }
     }
 
-    public interface OnBindListener<T, VH> {
-        void onBind(View parentView, int position, T t, VH holder);
-    }
-
     public void setOnBindListener(OnBindListener<T, VH> listener) {
         mOnBindListener = listener;
+    }
+
+    public interface OnBindListener<T, VH> {
+        void onBind(View parentView, int position, T t, VH holder);
     }
 
     @SuppressWarnings("unused")

@@ -17,7 +17,11 @@ package com.twiceyuan.commonadapter.library.util;
 
 import android.view.View;
 
+import com.twiceyuan.commonadapter.library.Singleton;
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 public class AdapterUtil {
 
@@ -42,5 +46,41 @@ public class AdapterUtil {
             throw new LayoutNotFoundException();
         }
         return itemLayoutId;
+    }
+
+    /**
+     * Init singleton object of adapter that defined in common holder
+     */
+    public static void setupAdapterSingleton(Map<String, Object> adapterObject, CommonHolder holder) {
+        Field[] declaredFields = holder.getClass().getDeclaredFields();
+        for (Field field : declaredFields) {
+            Singleton annotation = field.getAnnotation(Singleton.class);
+            if (annotation != null) {
+
+                boolean accessible = field.isAccessible();
+                field.setAccessible(true);
+
+                Object cachedObject = adapterObject.get(field.getName());
+                if (cachedObject != null) {
+                    try {
+                        field.set(holder, cachedObject);
+                    } catch (IllegalAccessException ignored) {
+                        ignored.printStackTrace();
+                    } finally {
+                        field.setAccessible(accessible);
+                    }
+                } else {
+                    holder.initSingleton();
+                    try {
+                        Object o = field.get(holder);
+                        adapterObject.put(field.getName(), o);
+                    } catch (IllegalAccessException ignored) {
+                        ignored.printStackTrace();
+                    } finally {
+                        field.setAccessible(accessible);
+                    }
+                }
+            }
+        }
     }
 }

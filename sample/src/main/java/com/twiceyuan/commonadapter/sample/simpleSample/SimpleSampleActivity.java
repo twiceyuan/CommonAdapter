@@ -40,8 +40,8 @@ public class SimpleSampleActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mListView = (ListView) findViewById(R.id.listView);
 
-        /**
-         * RecyclerView Adapter Sample
+        /*
+          RecyclerView Adapter Sample
          */
         // build adapter
         CommonAdapter<Person, PersonHolder> recyclerAdapter = new CommonAdapter<>(this, PersonHolder.class);
@@ -72,8 +72,8 @@ public class SimpleSampleActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * ListView Adapter Sample
+        /*
+          ListView Adapter Sample
          */
         // build adapter
         CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);

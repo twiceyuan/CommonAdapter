@@ -2,6 +2,7 @@ package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,9 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     private Map<Class<? extends ViewTypeItem>, Class<? extends CommonHolder<? extends ViewTypeItem>>> mHolderMap;
 
     private Map<Class<? extends CommonHolder>, Integer> mHolderLayouts; // viewHolder => layout id
-    private Map<Integer, Class<? extends CommonHolder>> mViewTypeHolders; // viewType => CommonHolder
+    private SparseArray<Class<? extends CommonHolder>>  mViewTypeHolders; // viewType => CommonHolder
+
+    private Map<String, Object> mAdapterSingletonCache = new ConcurrentHashMap<>();
 
     @SuppressWarnings("unused")
     public CommonAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
@@ -56,7 +59,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
         mHolderLayouts = new HashMap<>();
-        mViewTypeHolders = new HashMap<>();
+        mViewTypeHolders = new SparseArray<>();
     }
 
     CommonAdapter(Context context) {
@@ -64,9 +67,10 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
         mHolderLayouts = new HashMap<>();
-        mViewTypeHolders = new HashMap<>();
+        mViewTypeHolders = new SparseArray<>();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public T getItem(int position) {
         return mData.get(position);
     }
@@ -77,8 +81,10 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         // 如果配置了 HolderClass 则直接通过反射创建
         if (mHolderClass != null) {
             View view = mInflater.inflate(mLayoutId, parent, false);
+            CommonHolder viewHolder = AdapterUtil.createViewHolder(view, mHolderClass);
+            AdapterUtil.setupAdapterSingleton(mAdapterSingletonCache, viewHolder);
             //noinspection unchecked
-            CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(AdapterUtil.createViewHolder(view, mHolderClass));
+            CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(viewHolder);
             FieldAnnotationParser.setViewFields(holder.getCommonHolder(), view);
             return holder;
         }
@@ -93,8 +99,10 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
                 mHolderLayouts.put(holderClass, layoutId);
             }
             view = mInflater.inflate(layoutId, parent, false);
+            CommonHolder viewHolder = AdapterUtil.createViewHolder(view, mHolderClass);
+            AdapterUtil.setupAdapterSingleton(mAdapterSingletonCache, viewHolder);
             //noinspection unchecked
-            CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(AdapterUtil.createViewHolder(view, holderClass));
+            CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(viewHolder);
             FieldAnnotationParser.setViewFields(holder.getCommonHolder(), view);
             return holder;
         }
@@ -132,6 +140,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         return super.getItemViewType(position);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static class ViewTypeNotFountException extends IllegalStateException {
         public ViewTypeNotFountException(Object item) {
             super(String.format("没有注册 item %s 的 Holder 类型", item.getClass().getCanonicalName()));

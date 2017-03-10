@@ -20,4 +20,7 @@ public abstract class CommonHolder<T> {
     public View getItemView() {
         return mItemView;
     }
+
+    public void initSingleton() {
+    }
 }
