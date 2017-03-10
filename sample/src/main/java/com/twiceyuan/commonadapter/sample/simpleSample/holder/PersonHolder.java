@@ -1,6 +1,5 @@
 package com.twiceyuan.commonadapter.sample.simpleSample.holder;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -21,21 +20,47 @@ public class PersonHolder extends CommonHolder<Person> {
 
     private static final String TAG = "PersonHolder";
 
-    @ViewId(R.id.name) public TextView name;
+    @ViewId(R.id.name) public  TextView name;
     @ViewId(R.id.email) public TextView email;
 
-    @Singleton
-    private Context mContext;
+    @Singleton private Object mObject1;
+    @Singleton private Object mObject2;
+    @Singleton private Object mObject3;
+    @Singleton private Object mObject4;
+    @Singleton private Object mObject5;
+    @Singleton private Object mObject6;
+    @Singleton private Object mObject7;
+    @Singleton private Object mObject8;
+
+    private Object mObject;
 
     @Override
     public void initSingleton() {
-        mContext = getItemView().getContext();
+        Log.i(TAG, "Init singleton instance");
+        mObject = new Object();
+        mObject1 = new Object();
+        mObject2 = new Object();
+        mObject3 = new Object();
+        mObject4 = new Object();
+        mObject5 = new Object();
+        mObject6 = new Object();
+        mObject7 = new Object();
+        mObject8 = new Object();
     }
 
-    @Override public void bindData(Person person) {
+    @Override
+    public void bindData(Person person) {
         name.setText(person.name);
         email.setText(person.email);
 
-        Log.i(TAG, "Singleton context = " + mContext);
+        Log.i(TAG, "mObject = " + mObject);
+        Log.i(TAG, "mObject1 = " + mObject1);
+        Log.i(TAG, "mObject2 = " + mObject2);
+        Log.i(TAG, "mObject3 = " + mObject3);
+        Log.i(TAG, "mObject4 = " + mObject4);
+        Log.i(TAG, "mObject5 = " + mObject5);
+        Log.i(TAG, "mObject6 = " + mObject6);
+        Log.i(TAG, "mObject7 = " + mObject7);
+        Log.i(TAG, "mObject8 = " + mObject8);
     }
 }
