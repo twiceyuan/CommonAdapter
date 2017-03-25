@@ -2,12 +2,12 @@ package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.holder.CommonRecyclerHolder;
@@ -23,6 +23,7 @@ import java.util.List;
  * <p/>
  * 可以设置 Footer 和 Header 的 CommonAdapter
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = "WrapperAdapter";
@@ -30,14 +31,14 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     private static final int HEADER_HOLDER = 10001;
     private static final int FOOTER_HOLDER = 10002;
 
+    final LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT);
+
     private CommonAdapter<T, Holder> mChildAdapter;
 
     private View mHeaderView;
     private View mFooterView;
-
-    final LinearLayoutCompat.LayoutParams mLayoutParams = new LinearLayoutCompat.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT);
 
     public WrapperAdapter(Context context, Class<Holder> holderClass) {
         mChildAdapter = new CommonAdapter<>(context, holderClass);
@@ -55,7 +56,8 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         childAdapter.registerAdapterDataObserver(getObserverFromRecyclerView(recyclerView));
     }
 
-    @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == HEADER_HOLDER) {
             return new HeaderHolder(mHeaderView);
         }
@@ -65,7 +67,8 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         return mChildAdapter.onCreateViewHolder(parent, viewType);
     }
 
-    @Override public int getItemViewType(int position) {
+    @Override
+    public int getItemViewType(int position) {
         if (position == 0 && mHeaderView != null) {
             return HEADER_HOLDER;
         }
@@ -129,7 +132,8 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         notifyDataSetChanged();
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mHeaderView != null) {
             position -= 1;
             if (position == -1) {
@@ -145,44 +149,38 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         mChildAdapter.onBindViewHolder((CommonRecyclerHolder<T>) holder, position);
     }
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         int count = mChildAdapter.getItemCount();
         return count + (mHeaderView == null ? 0 : 1) + (mFooterView == null ? 0 : 1);
-    }
-
-    public static class FooterHolder extends RecyclerView.ViewHolder {
-        public FooterHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public static class HeaderHolder extends RecyclerView.ViewHolder {
-        public HeaderHolder(View itemView) {
-            super(itemView);
-        }
     }
 
     public T getItem(int position) {
         return mChildAdapter.getItem(position);
     }
 
-    @SuppressWarnings("unused") public void addAll(Collection<? extends T> list) {
+    @SuppressWarnings("unused")
+    public void addAll(Collection<? extends T> list) {
         mChildAdapter.addAll(list);
     }
 
-    @SuppressWarnings("unused") public void add(T t) {
+    @SuppressWarnings("unused")
+    public void add(T t) {
         mChildAdapter.add(t);
     }
 
-    @SuppressWarnings("unused") public void clear() {
+    @SuppressWarnings("unused")
+    public void clear() {
         mChildAdapter.clear();
     }
 
-    @SuppressWarnings("unused") public void remove(T t) {
+    @SuppressWarnings("unused")
+    public void remove(T t) {
         mChildAdapter.remove(t);
     }
 
-    @SuppressWarnings("unused") public void removeAll(Collection<? extends T> ts) {
+    @SuppressWarnings("unused")
+    public void removeAll(Collection<? extends T> ts) {
         mChildAdapter.removeAll(ts);
     }
 
@@ -194,11 +192,13 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         return mChildAdapter.getData();
     }
 
-    @SuppressWarnings("unused") public void setOnBindListener(CommonAdapter.OnBindListener<T, Holder> listener) {
+    @SuppressWarnings("unused")
+    public void setOnBindListener(CommonAdapter.OnBindListener<T, Holder> listener) {
         mChildAdapter.setOnBindListener(listener);
     }
 
-    @SuppressWarnings("unused") public void setOnItemClickListener(CommonAdapter.OnItemClickListener<T> listener) {
+    @SuppressWarnings("unused")
+    public void setOnItemClickListener(CommonAdapter.OnItemClickListener<T> listener) {
         mChildAdapter.setOnItemClickListener(listener);
     }
 
@@ -210,6 +210,18 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             return null;
+        }
+    }
+
+    public static class FooterHolder extends RecyclerView.ViewHolder {
+        public FooterHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public static class HeaderHolder extends RecyclerView.ViewHolder {
+        public HeaderHolder(View itemView) {
+            super(itemView);
         }
     }
 }
