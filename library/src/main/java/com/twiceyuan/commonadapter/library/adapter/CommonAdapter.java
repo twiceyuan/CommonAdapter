@@ -104,6 +104,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
             //noinspection unchecked
             CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(viewHolder);
             FieldAnnotationParser.setViewFields(holder.getCommonHolder(), view);
+            viewHolder.initView();
             return holder;
         }
 

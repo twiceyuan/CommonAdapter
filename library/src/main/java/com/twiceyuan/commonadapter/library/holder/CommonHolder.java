@@ -23,4 +23,7 @@ public abstract class CommonHolder<T> {
 
     public void initSingleton() {
     }
+
+    public void initView() {
+    }
 }
