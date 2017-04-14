@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.util.AdapterUtil;
@@ -40,6 +41,15 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         mLayoutId = AdapterUtil.parseItemLayoutId(mHolderClass);
     }
 
+    public static <T, VH extends CommonHolder<T>> CommonListAdapter<T, VH> create(Context context, Class<VH> vhClass) {
+        return new CommonListAdapter<>(context, vhClass);
+    }
+
+    public CommonListAdapter<T, VH> attach(ListView listView) {
+        listView.setAdapter(this);
+        return this;
+    }
+
     @Override
     public int getCount() {
         return mData.size();
@@ -72,16 +82,19 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         return convertView;
     }
 
-    public void addAll(Collection<? extends T> list) {
+    public CommonListAdapter<T, VH> addAll(Collection<? extends T> list) {
         mData.addAll(list);
+        return this;
     }
 
-    public void add(T t) {
+    public CommonListAdapter<T, VH> add(T t) {
         mData.add(t);
+        return this;
     }
 
-    public void clear() {
+    public CommonListAdapter<T, VH> clear() {
         mData.clear();
+        return this;
     }
 
     public void remove(T t) {
@@ -103,8 +116,9 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         }
     }
 
-    public void setOnBindListener(OnBindListener<T, VH> listener) {
+    public CommonListAdapter<T, VH> setOnBindListener(OnBindListener<T, VH> listener) {
         mOnBindListener = listener;
+        return this;
     }
 
     public interface OnBindListener<T, VH> {

@@ -10,9 +10,9 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface DataManager<T> {
-    void clear();
-    void add(T t);
-    void addAll(Collection<? extends T> list);
+    DataManager<T> clear();
+    DataManager<T> add(T t);
+    DataManager<T> addAll(Collection<? extends T> list);
     void remove(T t);
     void removeAll(Collection<? extends T> ts);
     List<T> getData();

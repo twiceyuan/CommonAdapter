@@ -43,63 +43,60 @@ public class SimpleSampleActivity extends AppCompatActivity {
         /*
           RecyclerView Adapter Sample
          */
-        // build adapter
-        CommonAdapter<Person, PersonHolder> recyclerAdapter = new CommonAdapter<>(this, PersonHolder.class);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        // set adapter
-        mRecyclerView.setAdapter(recyclerAdapter);
+        CommonAdapter<Person, PersonHolder> recyclerAdapter = CommonAdapter.create(this, PersonHolder.class)
+                .attach(mRecyclerView)
+                // set elements click listener
+                .setOnBindListener(new CommonAdapter.OnBindListener<Person, PersonHolder>() {
+                    @Override
+                    public void onBind(int position, final Person person, PersonHolder holder) {
+                        holder.name.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                toast(person.name);
+                            }
+                        });
+                        holder.email.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                toast(person.email);
+                            }
+                        });
+                    }
+                });
 
         // mock data
         mockData(recyclerAdapter);
-
-        // set elements click listener
-        recyclerAdapter.setOnBindListener(new CommonAdapter.OnBindListener<Person, PersonHolder>() {
-            @Override
-            public void onBind(int position, final Person person, PersonHolder holder) {
-                holder.name.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toast(person.name);
-                    }
-                });
-                holder.email.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toast(person.email);
-                    }
-                });
-            }
-        });
 
         /*
           ListView Adapter Sample
          */
         // build adapter
-        CommonListAdapter<Person, PersonHolder> listAdapter = new CommonListAdapter<>(this, PersonHolder.class);
-        mListView.setAdapter(listAdapter);
+        CommonListAdapter<Person, PersonHolder> listAdapter = CommonListAdapter.create(this, PersonHolder.class)
+                .attach(mListView)
+                .setOnBindListener(new CommonListAdapter.OnBindListener<Person, PersonHolder>() {
+                    @Override
+                    public void onBind(View parentView, int position, final Person person, PersonHolder holder) {
+                        holder.name.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                toast(person.name);
+                            }
+                        });
+                        holder.email.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                toast(person.email);
+                            }
+                        });
+                    }
+                });
+
         mListView.setDivider(null);
 
         // mock data
         mockData(listAdapter);
-
-        listAdapter.setOnBindListener(new CommonListAdapter.OnBindListener<Person, PersonHolder>() {
-            @Override
-            public void onBind(View parentView, int position, final Person person, PersonHolder holder) {
-                holder.name.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toast(person.name);
-                    }
-                });
-                holder.email.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toast(person.email);
-                    }
-                });
-            }
-        });
 
         showListViewSample();
     }

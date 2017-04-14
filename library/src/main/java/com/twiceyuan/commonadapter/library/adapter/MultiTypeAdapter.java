@@ -88,7 +88,7 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
     }
 
     @Override
-    public void setOnBindListener(OnBindListener<ViewTypeItem, CommonHolder<ViewTypeItem>> listener) {
+    public CommonAdapter<ViewTypeItem, CommonHolder<ViewTypeItem>> setOnBindListener(OnBindListener<ViewTypeItem, CommonHolder<ViewTypeItem>> listener) {
         throw new RuntimeException("Don't configure onBindListener in MultiTypeAdapter, please use addHolderListener");
     }
 }

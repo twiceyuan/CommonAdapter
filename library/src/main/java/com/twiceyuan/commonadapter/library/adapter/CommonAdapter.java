@@ -27,15 +27,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>
  * 通用 RecyclerView Adapter
  */
+@SuppressWarnings("unused")
 public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.Adapter<CommonRecyclerHolder<T>>
         implements DataManager<T> {
 
-    private List<T> mData;
-    private LayoutInflater mInflater;
-    private Integer mLayoutId;
-    private OnBindListener<T, VH> mOnBindListener;
-    private OnItemClickListener<T> mItemClickListener;
-    private ViewTypeMapper mViewTypeMapper;
+    private List<T>                          mData;
+    private LayoutInflater                   mInflater;
+    private Integer                          mLayoutId;
+    private OnBindListener<T, VH>            mOnBindListener;
+    private OnItemClickListener<T>           mItemClickListener;
+    private ViewTypeMapper                   mViewTypeMapper;
     private Class<? extends CommonHolder<T>> mHolderClass;
 
     private Map<Class<? extends ViewTypeItem>, Class<? extends CommonHolder<? extends ViewTypeItem>>> mHolderMap;
@@ -45,7 +46,6 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
 
     private Map<String, Object> mAdapterSingletonCache = new ConcurrentHashMap<>();
 
-    @SuppressWarnings("unused")
     public CommonAdapter(Context context, Class<? extends CommonHolder<T>> holderClass) {
         mHolderClass = holderClass;
         mData = new ArrayList<>();
@@ -53,7 +53,6 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mLayoutId = AdapterUtil.parseItemLayoutId(holderClass);
     }
 
-    @SuppressWarnings("unused")
     CommonAdapter(Context context, ViewTypeMapper mapper) {
         mViewTypeMapper = mapper;
         mData = new ArrayList<>();
@@ -68,6 +67,15 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mInflater = LayoutInflater.from(context);
         mHolderLayouts = new HashMap<>();
         mViewTypeHolders = new SparseArray<>();
+    }
+
+    public static <T, VH extends CommonHolder<T>> CommonAdapter<T, VH> create(Context context, Class<VH> vhClass) {
+        return new CommonAdapter<>(context, vhClass);
+    }
+
+    public CommonAdapter<T, VH> attach(RecyclerView recyclerView) {
+        recyclerView.setAdapter(this);
+        return this;
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -100,7 +108,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
                 mHolderLayouts.put(holderClass, layoutId);
             }
             view = mInflater.inflate(layoutId, parent, false);
-            CommonHolder viewHolder = AdapterUtil.createViewHolder(view, mHolderClass);
+            CommonHolder viewHolder = AdapterUtil.createViewHolder(view, holderClass);
             AdapterUtil.setupAdapterSingleton(mAdapterSingletonCache, viewHolder);
             //noinspection unchecked
             CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(viewHolder);
@@ -142,13 +150,6 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         return super.getItemViewType(position);
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public static class ViewTypeNotFountException extends IllegalStateException {
-        public ViewTypeNotFountException(Object item) {
-            super(String.format("没有注册 item %s 的 Holder 类型", item.getClass().getCanonicalName()));
-        }
-    }
-
     private int getHolderViewType(Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass) {
         return holderClass.hashCode();
     }
@@ -176,18 +177,20 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     }
 
     @SuppressWarnings("unused")
-    public void addAll(Collection<? extends T> list) {
+    public CommonAdapter<T, VH> addAll(Collection<? extends T> list) {
         mData.addAll(list);
+        return this;
     }
 
-    @SuppressWarnings("unused")
-    public void add(T t) {
+    public CommonAdapter<T, VH> add(T t) {
         mData.add(t);
+        return this;
     }
 
     @SuppressWarnings("unused")
-    public void clear() {
+    public CommonAdapter<T, VH> clear() {
         mData.clear();
+        return this;
     }
 
     @SuppressWarnings("unused")
@@ -221,15 +224,15 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         }
     }
 
-    @SuppressWarnings("unused")
-    public void setOnBindListener(OnBindListener<T, VH> listener) {
+    public CommonAdapter<T, VH> setOnBindListener(OnBindListener<T, VH> listener) {
         mOnBindListener = listener;
+        return this;
     }
 
-    @SuppressWarnings("unused")
-    public void setOnItemClickListener(OnItemClickListener<T> listener) {
+    public CommonAdapter<T, VH> setOnItemClickListener(OnItemClickListener<T> listener) {
         mItemClickListener = listener;
         notifyDataSetChanged();
+        return this;
     }
 
     public interface OnBindListener<T, VH> {
@@ -238,5 +241,12 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
 
     public interface OnItemClickListener<T> {
         void onClick(int position, T t);
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public static class ViewTypeNotFountException extends IllegalStateException {
+        public ViewTypeNotFountException(Object item) {
+            super(String.format("没有注册 item %s 的 Holder 类型", item.getClass().getCanonicalName()));
+        }
     }
 }
