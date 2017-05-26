@@ -63,6 +63,27 @@ public class WrapperSampleActivity extends AppCompatActivity {
 
         mAdapter.setHeaderView(header);
         mAdapter.setFooterView(footer);
+
+        header.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.setHeaderView(getHeaderOrFooter("New Header"));
+            }
+        }, 1000);
+
+        header.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.setHeaderView(getHeaderOrFooter("New Header2"));
+            }
+        }, 2000);
+
+        header.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.removeHeaderView();
+            }
+        }, 3000);
     }
 
     public TextView getHeaderOrFooter(final String text) {

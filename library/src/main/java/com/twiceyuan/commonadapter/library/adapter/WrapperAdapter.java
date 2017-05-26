@@ -28,17 +28,14 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
 
     private static final String TAG = "WrapperAdapter";
 
-    private static final int HEADER_HOLDER = 10001;
-    private static final int FOOTER_HOLDER = 10002;
+    private HeaderHolder mHeaderHolder;
+    private FooterHolder mFooterHolder;
 
     final LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT);
 
     private CommonAdapter<T, Holder> mChildAdapter;
-
-    private View mHeaderView;
-    private View mFooterView;
 
     public WrapperAdapter(Context context, Class<Holder> holderClass) {
         mChildAdapter = new CommonAdapter<>(context, holderClass);
@@ -58,22 +55,23 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == HEADER_HOLDER) {
-            return new HeaderHolder(mHeaderView);
+        Log.i(TAG, "onCreateViewHolder: " + viewType);
+        if (viewType == getHeaderType()) {
+            return mHeaderHolder;
         }
-        if (viewType == FOOTER_HOLDER) {
-            return new FooterHolder(mFooterView);
+        if (viewType == getFooterType()) {
+            return mFooterHolder;
         }
         return mChildAdapter.onCreateViewHolder(parent, viewType);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && mHeaderView != null) {
-            return HEADER_HOLDER;
+        if (position == 0 && mHeaderHolder != null) {
+            return mHeaderHolder.hashCode();
         }
-        if (position == getItemCount() - 1 && mFooterView != null) {
-            return FOOTER_HOLDER;
+        if (position == getItemCount() - 1 && mFooterHolder != null) {
+            return mFooterHolder.hashCode();
         }
         return super.getItemViewType(position);
     }
@@ -87,11 +85,20 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return getItemViewType(position) == HEADER_HOLDER || getItemViewType(position) == FOOTER_HOLDER
-                            ? gridLayoutManager.getSpanCount() : 1;
+                    return getItemViewType(position) == getHeaderType() ||
+                            getItemViewType(position) == getFooterType() ?
+                            gridLayoutManager.getSpanCount() : 1;
                 }
             });
         }
+    }
+
+    private int getHeaderType() {
+        return mHeaderHolder == null ? -1 : mHeaderHolder.hashCode();
+    }
+
+    private int getFooterType() {
+        return mFooterHolder == null ? -1 : mFooterHolder.hashCode();
     }
 
     @Override
@@ -113,34 +120,36 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     }
 
     public void setHeaderView(View headerView) {
-        if (headerView.getParent() != null) {
-            ViewGroup viewGroup = (ViewGroup) headerView.getParent();
-            viewGroup.removeView(headerView);
-        }
-        mHeaderView = headerView;
-        mHeaderView.setLayoutParams(mLayoutParams);
+        headerView.setLayoutParams(mLayoutParams);
+        mHeaderHolder = new HeaderHolder(headerView);
         notifyDataSetChanged();
     }
 
     public void setFooterView(View footerView) {
-        if (footerView.getParent() != null) {
-            ViewGroup viewGroup = (ViewGroup) footerView.getParent();
-            viewGroup.removeView(footerView);
-        }
-        mFooterView = footerView;
-        mFooterView.setLayoutParams(mLayoutParams);
+        footerView.setLayoutParams(mLayoutParams);
+        mFooterHolder = new FooterHolder(footerView);
+        notifyDataSetChanged();
+    }
+
+    public void removeHeaderView() {
+        mHeaderHolder = null;
+        notifyDataSetChanged();
+    }
+
+    public void removeFooterView() {
+        mFooterHolder = null;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (mHeaderView != null) {
+        if (mHeaderHolder != null) {
             position -= 1;
             if (position == -1) {
                 return;
             }
         }
-        if (mFooterView != null) {
+        if (mFooterHolder != null) {
             if (position == mChildAdapter.getItemCount()) {
                 return;
             }
@@ -152,7 +161,7 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     @Override
     public int getItemCount() {
         int count = mChildAdapter.getItemCount();
-        return count + (mHeaderView == null ? 0 : 1) + (mFooterView == null ? 0 : 1);
+        return count + (mHeaderHolder == null ? 0 : 1) + (mFooterHolder == null ? 0 : 1);
     }
 
     public T getItem(int position) {
