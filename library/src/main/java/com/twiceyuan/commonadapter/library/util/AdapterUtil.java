@@ -41,6 +41,18 @@ public class AdapterUtil {
         }
     }
 
+    //Create a new ItemViewHolder using Java reflection
+    public static CommonHolder createViewHolder(Class<? extends CommonHolder> itemViewHolderClass) {
+        //noinspection TryWithIdenticalCatches
+        try {
+            return itemViewHolderClass.newInstance();
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     //Parses the layout ID annotation form the itemViewHolderClass
     public static Integer parseItemLayoutId(Class<? extends CommonHolder> itemViewHolderClass) {
         Integer itemLayoutId = ClassAnnotationParser.getLayoutId(itemViewHolderClass);

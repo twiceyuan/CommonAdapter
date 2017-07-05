@@ -33,7 +33,6 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
 
     private List<T>                          mData;
     private LayoutInflater                   mInflater;
-    private Integer                          mLayoutId;
     private OnBindListener<T, VH>            mOnBindListener;
     private OnItemClickListener<T>           mItemClickListener;
     private ViewTypeMapper                   mViewTypeMapper;
@@ -50,7 +49,6 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mHolderClass = holderClass;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
-        mLayoutId = AdapterUtil.parseItemLayoutId(holderClass);
     }
 
     CommonAdapter(Context context, ViewTypeMapper mapper) {
@@ -88,8 +86,9 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
 
         // 如果配置了 HolderClass 则直接通过反射创建
         if (mHolderClass != null) {
-            View view = mInflater.inflate(mLayoutId, parent, false);
-            CommonHolder viewHolder = AdapterUtil.createViewHolder(view, mHolderClass);
+            CommonHolder viewHolder = AdapterUtil.createViewHolder(mHolderClass);
+            View view = mInflater.inflate(viewHolder.getLayoutId(), parent, false);
+            viewHolder.setItemView(view);
             AdapterUtil.setupAdapterSingleton(mAdapterSingletonCache, viewHolder);
             //noinspection unchecked
             CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(viewHolder);
@@ -102,13 +101,13 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         if (mViewTypeMapper != null || mHolderMap != null) {
             Class<? extends CommonHolder> holderClass = mViewTypeHolders.get(viewType);
             Integer layoutId = mHolderLayouts.get(holderClass);
-            View view;
+            CommonHolder viewHolder = AdapterUtil.createViewHolder(holderClass);
             if (layoutId == null) {
-                layoutId = AdapterUtil.parseItemLayoutId(holderClass);
+                layoutId = viewHolder.getLayoutId();
                 mHolderLayouts.put(holderClass, layoutId);
             }
-            view = mInflater.inflate(layoutId, parent, false);
-            CommonHolder viewHolder = AdapterUtil.createViewHolder(view, holderClass);
+            View view = mInflater.inflate(layoutId, parent, false);
+            viewHolder.setItemView(view);
             AdapterUtil.setupAdapterSingleton(mAdapterSingletonCache, viewHolder);
             //noinspection unchecked
             CommonRecyclerHolder<T> holder = new CommonRecyclerHolder<>(viewHolder);

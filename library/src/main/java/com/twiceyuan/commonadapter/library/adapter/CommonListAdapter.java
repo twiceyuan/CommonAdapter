@@ -29,7 +29,6 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
     private LayoutInflater                   mInflater;
     private List<T>                          mData;
     private Class<? extends CommonHolder<T>> mHolderClass;
-    private Integer                          mLayoutId;
     private OnBindListener<T, VH>            mOnBindListener;
 
     private Map<String, Object> mSingletonCache = new ConcurrentHashMap<>();
@@ -38,7 +37,6 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
         mHolderClass = holderClass;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);
-        mLayoutId = AdapterUtil.parseItemLayoutId(mHolderClass);
     }
 
     public static <T, VH extends CommonHolder<T>> CommonListAdapter<T, VH> create(Context context, Class<VH> vhClass) {
@@ -68,8 +66,9 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(mLayoutId, parent, false);
-            CommonHolder holder = AdapterUtil.createViewHolder(convertView, mHolderClass);
+            CommonHolder holder = AdapterUtil.createViewHolder(mHolderClass);
+            convertView = mInflater.inflate(holder.getLayoutId(), parent, false);
+            holder.setItemView(convertView);
             AdapterUtil.setupAdapterSingleton(mSingletonCache, holder);
             FieldAnnotationParser.setViewFields(holder, convertView);
             convertView.setTag(holder);

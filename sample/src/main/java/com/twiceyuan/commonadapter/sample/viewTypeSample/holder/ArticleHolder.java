@@ -2,7 +2,6 @@ package com.twiceyuan.commonadapter.sample.viewTypeSample.holder;
 
 import android.widget.TextView;
 
-import com.twiceyuan.commonadapter.library.LayoutId;
 import com.twiceyuan.commonadapter.library.ViewId;
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.sample.R;
@@ -13,7 +12,6 @@ import com.twiceyuan.commonadapter.sample.viewTypeSample.model.Article;
  * Email: i@twiceyuan.com
  * Site: http://twiceyuan.com
  */
-@LayoutId(R.layout.item_article)
 public class ArticleHolder extends CommonHolder<Article> {
 
     @ViewId(R.id.textTitle) public TextView textTitle;
@@ -22,5 +20,10 @@ public class ArticleHolder extends CommonHolder<Article> {
     @Override public void bindData(Article article) {
         textTitle.setText(article.title);
         textContent.setText(article.content);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.item_article;
     }
 }
