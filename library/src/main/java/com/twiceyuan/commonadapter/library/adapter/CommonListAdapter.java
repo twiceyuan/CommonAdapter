@@ -69,6 +69,7 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
             CommonHolder holder = AdapterUtil.createViewHolder(mHolderClass);
             convertView = mInflater.inflate(holder.getLayoutId(), parent, false);
             holder.setItemView(convertView);
+            holder.initView();
             AdapterUtil.setupAdapterSingleton(mSingletonCache, holder);
             FieldAnnotationParser.setViewFields(holder, convertView);
             convertView.setTag(holder);
