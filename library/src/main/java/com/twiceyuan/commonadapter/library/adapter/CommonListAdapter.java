@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.twiceyuan.commonadapter.library.R;
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.util.AdapterUtil;
 import com.twiceyuan.commonadapter.library.util.FieldAnnotationParser;
@@ -72,10 +73,10 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
             holder.initView();
             AdapterUtil.setupAdapterSingleton(mSingletonCache, holder);
             FieldAnnotationParser.setViewFields(holder, convertView);
-            convertView.setTag(holder);
+            convertView.setTag(R.id.common_adapter_default_id, holder);
         }
         //noinspection unchecked
-        CommonHolder<T> holder = (CommonHolder<T>) convertView.getTag();
+        CommonHolder<T> holder = (CommonHolder<T>) convertView.getTag(R.id.common_adapter_default_id);
         holder.bindData(getItem(position));
         //noinspection unchecked
         bindListener(convertView, position, (VH) holder);
