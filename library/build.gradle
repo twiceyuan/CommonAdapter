@@ -6,12 +6,12 @@ final GROUP_ID = 'com.twiceyuan'
 final MODULE_ID = 'commonadapter'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 5
         versionName VERSION_NAME
     }
@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:recyclerview-v7:27.0.0"
+    compile "com.android.support:recyclerview-v7:26.1.0"
 }
 
 // build a jar with source files
