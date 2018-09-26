@@ -23,15 +23,15 @@
 allprojects {
   repositories {
     // ...
-    maven { url "https://rasp.xyz/nexus/repository/twiceyuan/" }
+    maven { url "https://jitpack.io" }
   }
 }
 ```
 ```groovy
-compile("com.github.twiceyuan:CommonAdapter:0.7.3") {
-  exclude group: 'com.android.support', module: 'recyclerview-v7'
-}
+implementation "com.github.twiceyuan:CommonAdapter:$latest_version"
 ```
+
+(ext.latest_version= [![Jitpack](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter))
 
 # Usage
 
