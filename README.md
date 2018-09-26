@@ -28,7 +28,8 @@ allprojects {
 }
 ```
 ```groovy
-implementation "com.github.twiceyuan:CommonAdapter:$latest_version"
+implementation "com.github.twiceyuan.CommonAdapter:library:$latest_version"
+implementation "com.github.twiceyuan.CommonAdapter:kotlin-extension:$latest_version"
 ```
 
 (ext.latest_version= [![Jitpack](https://jitpack.io/v/twiceyuan/CommonAdapter.svg)](https://jitpack.io/#twiceyuan/CommonAdapter))
