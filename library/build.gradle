@@ -3,12 +3,12 @@ apply plugin: 'com.android.library'
 final VERSION_NAME = '0.7.3'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion rootProject.build_tool_version
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 5
         versionName VERSION_NAME
     }
@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:recyclerview-v7:27.1.1"
+    implementation "com.android.support:recyclerview-v7:$support_version"
 }
 
 // build a jar with source files
