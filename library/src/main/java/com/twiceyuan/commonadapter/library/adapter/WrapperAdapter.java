@@ -1,13 +1,13 @@
 package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.holder.CommonRecyclerHolder;
@@ -31,7 +31,7 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     private HeaderHolder mHeaderHolder;
     private FooterHolder mFooterHolder;
 
-    final LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(
+    final RecyclerView.LayoutParams mLayoutParams = new RecyclerView.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -53,8 +53,9 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         childAdapter.registerAdapterDataObserver(getObserverFromRecyclerView(recyclerView));
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i(TAG, "onCreateViewHolder: " + viewType);
         if (viewType == getHeaderType()) {
             return mHeaderHolder;
@@ -77,10 +78,10 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        if (layoutManager != null && layoutManager instanceof GridLayoutManager) {
+        if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
@@ -102,7 +103,7 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     }
 
     @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         View itemView = holder.itemView;
         ViewGroup.LayoutParams lp = itemView.getLayoutParams();
@@ -120,12 +121,20 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     }
 
     public void setHeaderView(View headerView) {
+        if (mHeaderHolder != null && mHeaderHolder.itemView == headerView) {
+            return;
+        }
+
         headerView.setLayoutParams(mLayoutParams);
         mHeaderHolder = new HeaderHolder(headerView);
         notifyDataSetChanged();
     }
 
     public void setFooterView(View footerView) {
+        if (mFooterHolder != null && mFooterHolder.itemView == footerView) {
+            return;
+        }
+
         footerView.setLayoutParams(mLayoutParams);
         mFooterHolder = new FooterHolder(footerView);
         notifyDataSetChanged();
@@ -142,7 +151,7 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (mHeaderHolder != null) {
             position -= 1;
             if (position == -1) {
