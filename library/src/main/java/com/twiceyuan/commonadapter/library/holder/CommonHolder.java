@@ -1,6 +1,6 @@
 package com.twiceyuan.commonadapter.library.holder;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.view.View;
 
 import com.twiceyuan.commonadapter.library.LayoutId;

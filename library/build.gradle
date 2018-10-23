@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "androidx.recyclerview:recyclerview:$android_x_version"
 }
 
 // build a jar with source files
