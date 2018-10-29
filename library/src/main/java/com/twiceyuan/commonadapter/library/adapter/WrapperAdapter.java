@@ -74,7 +74,7 @@ public class WrapperAdapter<T, Holder extends CommonHolder<T>> extends RecyclerV
         if (position == getItemCount() - 1 && mFooterHolder != null) {
             return mFooterHolder.hashCode();
         }
-        return super.getItemViewType(position);
+        return mChildAdapter.getItemViewType(position);
     }
 
     @Override

@@ -29,14 +29,14 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_type_sample);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         assert recyclerView != null;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         // 构造器中提供，数据和 Holder 的关系映射，可以设定多种 Holder 在一个 Recycler 中，原理是使用 viewType
-        final MultiTypeAdapter adapter;
+        final MultiTypeAdapter<ViewTypeItem> adapter;
 
-        adapter = new MultiTypeAdapter(this);
+        adapter = new MultiTypeAdapter<>(this);
         adapter.registerViewType(Photo.class, PhotoHolder.class);
         adapter.registerViewType(Article.class, ArticleHolder.class);
 

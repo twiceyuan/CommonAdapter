@@ -38,7 +38,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     private ViewTypeMapper                   mViewTypeMapper;
     private Class<? extends CommonHolder<T>> mHolderClass;
 
-    private Map<Class<? extends ViewTypeItem>, Class<? extends CommonHolder<? extends ViewTypeItem>>> mHolderMap;
+    private Map<Class<?>, Class<? extends CommonHolder<?>>> mHolderMap;
 
     private Map<Class<? extends CommonHolder>, Integer> mHolderLayouts; // viewHolder => layout id
     private SparseArray<Class<? extends CommonHolder>>  mViewTypeHolders; // viewType => CommonHolder
@@ -134,7 +134,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
             T item = getItem(position);
             if (item instanceof ViewTypeItem) {
                 ViewTypeItem typeItem = (ViewTypeItem) item;
-                Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass = mHolderMap.get(typeItem.getClass());
+                Class<? extends CommonHolder<?>> holderClass = mHolderMap.get(typeItem.getClass());
                 if (holderClass != null) {
                     int viewType = getHolderViewType(holderClass);
                     mViewTypeHolders.put(viewType, holderClass);
@@ -149,11 +149,11 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         return super.getItemViewType(position);
     }
 
-    private int getHolderViewType(Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass) {
+    private int getHolderViewType(Class<? extends CommonHolder<?>> holderClass) {
         return holderClass.hashCode();
     }
 
-    <DataType extends ViewTypeItem> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
+    <DataType> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
         mHolderMap.put(dataClass, holderClass);
     }
 
