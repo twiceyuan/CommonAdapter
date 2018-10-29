@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion rootProject.build_tool_version
 
     defaultConfig {
         applicationId "com.twiceyuan.commonadapter.sample"

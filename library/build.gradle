@@ -4,7 +4,6 @@ final VERSION_NAME = '0.7.3'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion rootProject.build_tool_version
 
     defaultConfig {
         minSdkVersion 14
