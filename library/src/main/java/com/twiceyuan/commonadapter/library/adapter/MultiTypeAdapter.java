@@ -15,7 +15,7 @@ import java.util.Set;
  * <p>
  * 多种 View Type 的 CommonAdapter 的直接继承。避免在使用的时候用错泛型
  */
-public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<ViewTypeItem>> {
+public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHolder<ItemType>> {
 
     private Map<OnBindListener, Class> mOnBindListeners;
 
@@ -29,7 +29,7 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
         mOnBindListeners = new HashMap<>();
     }
 
-    public <DataType extends ViewTypeItem> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
+    public <DataType> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
         super.registerViewType(dataClass, holderClass);
     }
 
@@ -62,9 +62,9 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
      * 监听器发生变动
      */
     private void refreshListener() {
-        super.setOnBindListener(new OnBindListener<ViewTypeItem, CommonHolder<ViewTypeItem>>() {
+        super.setOnBindListener(new OnBindListener<ItemType, CommonHolder<ItemType>>() {
             @Override
-            public void onBind(int position, ViewTypeItem item, CommonHolder<ViewTypeItem> holder) {
+            public void onBind(int position, ItemType item, CommonHolder<ItemType> holder) {
                 Set<OnBindListener> listeners = mOnBindListeners.keySet();
                 for (OnBindListener listener : listeners) {
                     Class argClass = mOnBindListeners.get(listener);
@@ -88,7 +88,7 @@ public class MultiTypeAdapter extends CommonAdapter<ViewTypeItem, CommonHolder<V
     }
 
     @Override
-    public CommonAdapter<ViewTypeItem, CommonHolder<ViewTypeItem>> setOnBindListener(OnBindListener<ViewTypeItem, CommonHolder<ViewTypeItem>> listener) {
+    public CommonAdapter<ItemType, CommonHolder<ItemType>> setOnBindListener(OnBindListener<ItemType, CommonHolder<ItemType>> listener) {
         throw new RuntimeException("Don't configure onBindListener in MultiTypeAdapter, please use addHolderListener");
     }
 }
