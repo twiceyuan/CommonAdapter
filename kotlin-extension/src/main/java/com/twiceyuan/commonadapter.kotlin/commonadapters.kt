@@ -10,7 +10,7 @@ inline fun <reified Model, reified ModelHolder : CommonHolder<Model>> Context.bu
 inline fun <reified Model, reified ModelHolder : CommonHolder<Model>> Context.buildListAdapter() =
         CommonListAdapter<Model, ModelHolder>(this, ModelHolder::class.java)
 
-inline fun <reified Model> Context.buildMultiTypeAdapter(viewTypeMapper: ViewTypeMapper) =
+inline fun <reified Model> Context.buildMultiTypeAdapter(viewTypeMapper: ViewTypeMapper<Model>) =
         MultiTypeAdapter<Model>(this, viewTypeMapper)
 
 inline fun <reified Model, reified ModelHolder : CommonHolder<Model>> Context.buildWrapperAdapter() =

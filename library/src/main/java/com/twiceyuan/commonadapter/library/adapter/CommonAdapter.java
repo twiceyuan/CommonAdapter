@@ -35,7 +35,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     private LayoutInflater                   mInflater;
     private OnBindListener<T, VH>            mOnBindListener;
     private OnItemClickListener<T>           mItemClickListener;
-    private ViewTypeMapper                   mViewTypeMapper;
+    private ViewTypeMapper<T>                mViewTypeMapper;
     private Class<? extends CommonHolder<T>> mHolderClass;
 
     private Map<Class<?>, Class<? extends CommonHolder<?>>> mHolderMap;
@@ -51,7 +51,7 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
         mInflater = LayoutInflater.from(context);
     }
 
-    CommonAdapter(Context context, ViewTypeMapper mapper) {
+    CommonAdapter(Context context, ViewTypeMapper<T> mapper) {
         mViewTypeMapper = mapper;
         mData = new ArrayList<>();
         mInflater = LayoutInflater.from(context);

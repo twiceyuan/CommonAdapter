@@ -19,7 +19,7 @@ public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHo
 
     private Map<OnBindListener, Class> mOnBindListeners;
 
-    public MultiTypeAdapter(Context context, ViewTypeMapper mapper) {
+    public MultiTypeAdapter(Context context, ViewTypeMapper<ItemType> mapper) {
         super(context, mapper);
         mOnBindListeners = new HashMap<>();
     }
