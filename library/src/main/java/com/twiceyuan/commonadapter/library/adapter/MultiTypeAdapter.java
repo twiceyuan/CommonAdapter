@@ -43,7 +43,7 @@ public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHo
      * @param <VH>          holder 类型
      */
     @SuppressWarnings("unused")
-    public <T extends ViewTypeItem, VH extends CommonHolder>
+    public <T, VH extends CommonHolder>
     void addHolderListener(final Class<T> viewTypeClass,
                            final Class<VH> holderClass,
                            final OnBindListener<T, VH> listener) {

@@ -124,24 +124,20 @@ public class CommonAdapter<T, VH extends CommonHolder<T>> extends RecyclerView.A
     public int getItemViewType(int position) {
         if (mViewTypeMapper != null) {
             // 使用 Holder 的 class 对象的 hashCode 作为 viewType，简化 ViewType 使用的逻辑
-            Class<? extends CommonHolder<? extends ViewTypeItem>> holderClass =
-                    mViewTypeMapper.getViewType((ViewTypeItem) getItem(position), position);
+            //noinspection unchecked
+            Class<? extends CommonHolder<?>> holderClass =
+                    mViewTypeMapper.getViewType(getItem(position), position);
             int viewType = getHolderViewType(holderClass);
             mViewTypeHolders.put(viewType, holderClass);
             return viewType;
         }
         if (mHolderMap != null) {
             T item = getItem(position);
-            if (item instanceof ViewTypeItem) {
-                ViewTypeItem typeItem = (ViewTypeItem) item;
-                Class<? extends CommonHolder<?>> holderClass = mHolderMap.get(typeItem.getClass());
-                if (holderClass != null) {
-                    int viewType = getHolderViewType(holderClass);
-                    mViewTypeHolders.put(viewType, holderClass);
-                    return viewType;
-                } else {
-                    throw new ViewTypeNotFountException(item);
-                }
+            Class<? extends CommonHolder<?>> holderClass = mHolderMap.get(item.getClass());
+            if (holderClass != null) {
+                int viewType = getHolderViewType(holderClass);
+                mViewTypeHolders.put(viewType, holderClass);
+                return viewType;
             } else {
                 throw new ViewTypeNotFountException(item);
             }

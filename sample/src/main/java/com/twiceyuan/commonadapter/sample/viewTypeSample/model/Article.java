@@ -1,7 +1,5 @@
 package com.twiceyuan.commonadapter.sample.viewTypeSample.model;
 
-import com.twiceyuan.commonadapter.library.adapter.ViewTypeItem;
-
 /**
  * Created by twiceYuan on 3/4/16.
  * Email: i@twiceyuan.com
@@ -9,7 +7,7 @@ import com.twiceyuan.commonadapter.library.adapter.ViewTypeItem;
  *
  * 文章实体
  */
-public class Article implements ViewTypeItem {
+public class Article implements BaseContent {
 
     public String title;
     public String content;

@@ -9,11 +9,11 @@ import android.widget.Toast;
 
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.MultiTypeAdapter;
-import com.twiceyuan.commonadapter.library.adapter.ViewTypeItem;
 import com.twiceyuan.commonadapter.sample.R;
 import com.twiceyuan.commonadapter.sample.viewTypeSample.holder.ArticleHolder;
 import com.twiceyuan.commonadapter.sample.viewTypeSample.holder.PhotoHolder;
 import com.twiceyuan.commonadapter.sample.viewTypeSample.model.Article;
+import com.twiceyuan.commonadapter.sample.viewTypeSample.model.BaseContent;
 import com.twiceyuan.commonadapter.sample.viewTypeSample.model.Photo;
 
 /**
@@ -34,7 +34,7 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         // 构造器中提供，数据和 Holder 的关系映射，可以设定多种 Holder 在一个 Recycler 中，原理是使用 viewType
-        final MultiTypeAdapter<ViewTypeItem> adapter;
+        final MultiTypeAdapter<BaseContent> adapter;
 
         adapter = new MultiTypeAdapter<>(this);
         adapter.registerViewType(Photo.class, PhotoHolder.class);
@@ -57,8 +57,8 @@ public class ViewTypeSampleActivity extends AppCompatActivity {
             }
         }).start();
 
-        adapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener<ViewTypeItem>() {
-            @Override public void onClick(int position, ViewTypeItem item) {
+        adapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener<BaseContent>() {
+            @Override public void onClick(int position, BaseContent item) {
                 if (item instanceof Article) {
                     Toast.makeText(ViewTypeSampleActivity.this, "你点击了一篇文章，位置" + position, Toast.LENGTH_SHORT).show();
                 }
