@@ -13,6 +13,8 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 
+  licenses:
+    - 'android-sdk-license-.+'
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
     # - platform-tools
