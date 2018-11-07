@@ -20,7 +20,7 @@ android:
   licenses:
     - 'android-sdk-license-.+'
 
-script: sh gradlew sample:assembleRelease
+script: ./gradlew sample:assembleRelease
 
 deploy:
   provider: releases
