@@ -1,38 +1,23 @@
 before_install:
- - chmod +x gradlew
-
+- openssl aes-256-cbc -K $encrypted_984c8453bc3f_key -iv $encrypted_984c8453bc3f_iv
+  -in twiceyuan.jks.enc -out twiceyuan.jks -d
+- chmod +x gradlew
 language: android
 jdk:
-  - oraclejdk8
+- oraclejdk8
 android:
   components:
-    - tools
-    - build-tools-25.0.2
-    - android-25
-    - extra-android-support
-    - extra-android-m2repository
-    - extra-google-m2repository
-
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
-
-    # The BuildTools version used by your project
-    #- build-tools-23.0.2
-
-    # The SDK version used to compile your project
-    #- android-23
-
-    # Additional components
-    #- extra-google-google_play_services
-    #- extra-google-m2repository
-    #- extra-android-m2repository
-    #- addon-google_apis-google-19
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    #- sys-img-armeabi-v7a-android-19
-    #- sys-img-x86-android-17
-
-script: ./gradlew build check
+  - tools
+  - build-tools-25.0.2
+  - android-25
+  - extra-android-support
+  - extra-android-m2repository
+  - extra-google-m2repository
+script: "sh gradlew assembleRelease"
+deploy:
+  provider: releases
+  api_key:
+    secure: FLPF83eUh1ll1TDUrkr2zr0xijAfgF1fg5hvinCAlNi/EC73f9MCWUUuDvu9yP+Dl8osjVBbGAxWJqFOWtAUf601wq6bigH9YAwEwI5uAfwXgt16pNaTJHyVYd36MAivYOAhtIn8Pxn5Gur2TFjsV/DxDhTZZy2TpZGRyNY01pK1+Wc8lybzbGK7mSm/i7y3JJMrE7hmgd1nP5Mr0V2gopYn0MEeNtNQyKH65+fP7OWQu9UMlJP//GZyvsUqnQWRPoVp4YH2rnj0ozT8+DogrfYo06W2fXIEB0SEh1RyErPXesG8I+al1L7YpZLCOAyx/spa6MhSE03IRiKX2eTflS/Eq8idOKknR+szmll2jUXu2biLAEAoUg+EpWAavR/2GZ5pR6jGm7kD7C+VVUE64o+NrWRvSUsN2ki8/RIGr9V1NAkS0hfxbrXl+c5lrK02UcVaLZEDAlKmfVlmF0H9T0ZoIffXljPyLkq4phfAtQTM329YdMDxTV4mtCNTX10+zsP1XdgfMmdARGObLMpzTu9KsQ6dvq4Lwq9k2P2mROZe2YLgp/eFYSYb8oKo4beiZVIsPELWH8mJb7iz1g4Zf6LVYn3Q8j490MFQqDNVkcHF1uudMtVVvjTm0rL8Ty0/Wz0Erw17K26Ue1nj++/zIO3mZ6Efot4r00YS0Yn49Kc=
+  file: sample/build/outputs/apk/app-release.apk
+  on:
+    repo: twiceyuan/CommonAdapter
