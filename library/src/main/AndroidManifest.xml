@@ -1,11 +1,3 @@
-<manifest
-    package="com.twiceyuan.commonadapter.library"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <application
-        tools:ignore="GoogleAppIndexingWarning"
-        android:allowBackup="true"
-        android:supportsRtl="true"/>
+<manifest package="com.twiceyuan.commonadapter.library">
 
 </manifest>
