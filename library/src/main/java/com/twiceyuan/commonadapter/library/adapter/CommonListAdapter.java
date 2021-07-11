@@ -20,8 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p/>
  * 通用 ListView Adapter
  */
@@ -67,7 +65,7 @@ public class CommonListAdapter<T, VH extends CommonHolder<T>> extends BaseAdapte
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            CommonHolder holder = AdapterUtil.createViewHolder(mHolderClass);
+            CommonHolder<?> holder = AdapterUtil.createViewHolder(mHolderClass);
             convertView = mInflater.inflate(holder.getLayoutId(), parent, false);
             holder.setItemView(convertView);
             holder.initView();

@@ -1,13 +1,14 @@
 package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.holder.CommonRecyclerHolder;
@@ -18,8 +19,6 @@ import java.util.List;
 
 /**
  * Created by twiceYuan on 4/16/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p/>
  * 可以设置 Footer 和 Header 的 CommonAdapter
  */

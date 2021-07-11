@@ -2,14 +2,15 @@ package com.twiceyuan.commonadapter.sample.simpleSample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.CommonListAdapter;
@@ -44,26 +45,16 @@ public class SimpleSampleActivity extends AppCompatActivity {
           RecyclerView Adapter Sample
          */
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerView.setVerticalFadingEdgeEnabled(true);
+//        mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//        mRecyclerView.setFadingEdgeLength(Math.round(30 * Resources.getSystem().getDisplayMetrics().density));
 
         CommonAdapter<Person, PersonHolder> recyclerAdapter = CommonAdapter.create(this, PersonHolder.class)
                 .attach(mRecyclerView)
                 // set elements click listener
-                .setOnBindListener(new CommonAdapter.OnBindListener<Person, PersonHolder>() {
-                    @Override
-                    public void onBind(int position, final Person person, PersonHolder holder) {
-                        holder.name.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                toast(person.name);
-                            }
-                        });
-                        holder.email.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                toast(person.email);
-                            }
-                        });
-                    }
+                .setOnBindListener((position, person, holder) -> {
+                    holder.binding.name.setOnClickListener(v -> toast(person.name));
+                    holder.binding.email.setOnClickListener(v -> toast(person.email));
                 });
 
         // mock data
@@ -78,13 +69,13 @@ public class SimpleSampleActivity extends AppCompatActivity {
                 .setOnBindListener(new CommonListAdapter.OnBindListener<Person, PersonHolder>() {
                     @Override
                     public void onBind(View parentView, int position, final Person person, PersonHolder holder) {
-                        holder.name.setOnClickListener(new View.OnClickListener() {
+                        holder.binding.name.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 toast(person.name);
                             }
                         });
-                        holder.email.setOnClickListener(new View.OnClickListener() {
+                        holder.binding.email.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 toast(person.email);

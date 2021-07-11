@@ -1,11 +1,9 @@
 package com.twiceyuan.commonadapter.library.holder;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  *
  * common holder wrapper to RecyclerView holder
  * 改为 final 避免错误继承

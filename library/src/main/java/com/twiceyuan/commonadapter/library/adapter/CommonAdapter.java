@@ -1,11 +1,12 @@
 package com.twiceyuan.commonadapter.library.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.library.holder.CommonRecyclerHolder;
@@ -22,8 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p>
  * 通用 RecyclerView Adapter
  */

@@ -10,14 +10,12 @@ import java.util.Set;
 
 /**
  * Created by twiceYuan on 3/4/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p>
  * 多种 View Type 的 CommonAdapter 的直接继承。避免在使用的时候用错泛型
  */
 public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHolder<ItemType>> {
 
-    private Map<OnBindListener, Class> mOnBindListeners;
+    private final Map<OnBindListener<?, ?>, Class<?>> mOnBindListeners;
 
     public MultiTypeAdapter(Context context, ViewTypeMapper<ItemType> mapper) {
         super(context, mapper);
@@ -29,6 +27,7 @@ public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHo
         mOnBindListeners = new HashMap<>();
     }
 
+    @Override
     public <DataType> void registerViewType(Class<DataType> dataClass, Class<? extends CommonHolder<DataType>> holderClass) {
         super.registerViewType(dataClass, holderClass);
     }
@@ -65,12 +64,13 @@ public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHo
         super.setOnBindListener(new OnBindListener<ItemType, CommonHolder<ItemType>>() {
             @Override
             public void onBind(int position, ItemType item, CommonHolder<ItemType> holder) {
-                Set<OnBindListener> listeners = mOnBindListeners.keySet();
-                for (OnBindListener listener : listeners) {
-                    Class argClass = mOnBindListeners.get(listener);
+                Set<OnBindListener<?, ?>> listeners = mOnBindListeners.keySet();
+                for (OnBindListener<?, ?> listener : listeners) {
+                    Class<?> argClass = mOnBindListeners.get(listener);
                     if (item.getClass() == argClass || holder.getClass() == argClass) {
                         //noinspection unchecked
-                        listener.onBind(position, item, holder);
+                        final OnBindListener<ItemType, CommonHolder<ItemType>> l = (OnBindListener<ItemType, CommonHolder<ItemType>>) listener;
+                        l.onBind(position, item, holder);
                     }
                 }
             }
@@ -82,7 +82,7 @@ public class MultiTypeAdapter<ItemType> extends CommonAdapter<ItemType, CommonHo
      *
      * @param listener 需要移除的监听器对象
      */
-    public void removeHolderListener(OnBindListener listener) {
+    public void removeHolderListener(OnBindListener<?, ?> listener) {
         mOnBindListeners.remove(listener);
         refreshListener();
     }
