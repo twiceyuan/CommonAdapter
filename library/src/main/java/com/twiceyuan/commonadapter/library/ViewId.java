@@ -7,11 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
+ *
+ * @deprecated resId 在库项目中不是常量，不建议使用注解来配置
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface ViewId {
     int value();
 }

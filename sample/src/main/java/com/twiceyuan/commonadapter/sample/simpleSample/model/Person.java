@@ -2,8 +2,6 @@ package com.twiceyuan.commonadapter.sample.simpleSample.model;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  */
 public class Person {
 

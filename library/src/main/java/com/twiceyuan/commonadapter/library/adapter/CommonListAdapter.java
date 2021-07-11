@@ -20,8 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p/>
  * 通用 ListView Adapter
  */

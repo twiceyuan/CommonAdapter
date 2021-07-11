@@ -1,14 +1,11 @@
 package com.twiceyuan.commonadapter.library.holder;
 
-import android.support.annotation.LayoutRes;
 import android.view.View;
-
+import androidx.annotation.LayoutRes;
 import com.twiceyuan.commonadapter.library.LayoutId;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  */
 public abstract class CommonHolder<T> {
 
@@ -24,7 +21,8 @@ public abstract class CommonHolder<T> {
         return mItemView;
     }
 
-    public @LayoutRes int getLayoutId() {
+    public @LayoutRes
+    int getLayoutId() {
         LayoutId layoutId = this.getClass().getAnnotation(LayoutId.class);
         if (layoutId != null) {
             return layoutId.value();

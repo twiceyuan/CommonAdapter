@@ -4,8 +4,6 @@ import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 
 /**
  * Created by twiceYuan on 3/4/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p/>
  * 描述实体 => CommonHolder 的关系映射，来简化 ViewType 逻辑
  */

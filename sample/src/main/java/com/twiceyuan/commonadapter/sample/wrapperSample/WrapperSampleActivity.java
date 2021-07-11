@@ -1,12 +1,6 @@
 package com.twiceyuan.commonadapter.sample.wrapperSample;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +8,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.twiceyuan.commonadapter.library.adapter.CommonAdapter;
 import com.twiceyuan.commonadapter.library.adapter.WrapperAdapter;
@@ -23,8 +24,6 @@ import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 
 /**
  * Created by twiceYuan on 4/16/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  * <p/>
  * 添加 Header 和 Footer 的 RecyclerView 演示
  */

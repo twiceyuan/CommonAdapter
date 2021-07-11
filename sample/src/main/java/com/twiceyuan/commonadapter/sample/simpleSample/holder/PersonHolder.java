@@ -1,27 +1,26 @@
 package com.twiceyuan.commonadapter.sample.simpleSample.holder;
 
 import android.util.Log;
-import android.widget.TextView;
 
-import com.twiceyuan.commonadapter.library.LayoutId;
 import com.twiceyuan.commonadapter.library.Singleton;
-import com.twiceyuan.commonadapter.library.ViewId;
 import com.twiceyuan.commonadapter.library.holder.CommonHolder;
 import com.twiceyuan.commonadapter.sample.R;
+import com.twiceyuan.commonadapter.sample.databinding.ItemPersonBinding;
 import com.twiceyuan.commonadapter.sample.simpleSample.model.Person;
 
 /**
  * Created by twiceYuan on 1/20/16.
- * Email: i@twiceyuan.com
- * Site: http://twiceyuan.com
  */
-@LayoutId(R.layout.item_person)
 public class PersonHolder extends CommonHolder<Person> {
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.item_person;
+    }
 
     private static final String TAG = "PersonHolder";
 
-    @ViewId(R.id.name) public  TextView name;
-    @ViewId(R.id.email) public TextView email;
+    public ItemPersonBinding binding;
 
     @Singleton private Object mObject1;
     @Singleton private Object mObject2;
@@ -33,6 +32,12 @@ public class PersonHolder extends CommonHolder<Person> {
     @Singleton private Object mObject8;
 
     private Object mObject;
+
+    @Override
+    public void initView() {
+        super.initView();
+        binding = ItemPersonBinding.bind(getItemView());
+    }
 
     @Override
     public void initSingleton() {
@@ -50,8 +55,8 @@ public class PersonHolder extends CommonHolder<Person> {
 
     @Override
     public void bindData(Person person) {
-        name.setText(person.name);
-        email.setText(person.email);
+        binding.name.setText(person.name);
+        binding.email.setText(person.email);
 
         Log.i(TAG, "mObject = " + mObject);
         Log.i(TAG, "mObject1 = " + mObject1);
